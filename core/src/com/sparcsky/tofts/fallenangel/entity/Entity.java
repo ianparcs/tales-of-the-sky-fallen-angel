@@ -9,9 +9,7 @@ public abstract class Entity {
     protected float width;
     protected float height;
 
-    public void update(float delta) {
-
-    }
+     abstract void update(float delta);
 
     public void draw(SpriteBatch batch) {
 

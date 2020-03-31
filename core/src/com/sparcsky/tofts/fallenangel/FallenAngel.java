@@ -1,24 +1,28 @@
 package com.sparcsky.tofts.fallenangel;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.screen.LoadScreen;
 import com.sparcsky.tofts.fallenangel.screen.ScreenManager;
 
 public class FallenAngel extends Game {
+
     public Asset asset;
     public SpriteBatch render;
     public ScreenManager screenManager;
+    public Color screenColor;
 
     @Override
     public void create() {
         render = new SpriteBatch();
+        screenColor = new Color();
+
         asset = new Asset();
+        asset.loadInitial();
 
         screenManager = new ScreenManager(this);
         screenManager.setScreen(new LoadScreen(this));
@@ -26,8 +30,12 @@ public class FallenAngel extends Game {
 
     @Override
     public void render() {
-        screenManager.update(Gdx.graphics.getDeltaTime());
-        screenManager.render(Gdx.graphics.getDeltaTime());
+        Gdx.gl.glClearColor(screenColor.r, screenColor.g, screenColor.b, screenColor.a);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        float delta = Gdx.graphics.getDeltaTime();
+        screenManager.update(delta);
+        screenManager.render(delta);
     }
 
     @Override

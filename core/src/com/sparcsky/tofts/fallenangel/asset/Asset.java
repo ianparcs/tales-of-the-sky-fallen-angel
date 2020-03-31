@@ -16,10 +16,10 @@ import com.sparcsky.tofts.fallenangel.screen.BaseScreen;
 
 public class Asset {
 
-    public static final AssetDescriptor<BitmapFont> fontBit = new AssetDescriptor<>("font/SDS_8x8.ttf", BitmapFont.class);
-    public static final AssetDescriptor<Texture> loadDiamond = new AssetDescriptor<>("image/load_diamond.png", Texture.class);
-    public static final AssetDescriptor<Texture> libgdxLogo = new AssetDescriptor<>("image/libgdx_logo.png", Texture.class);
-    public static final AssetDescriptor<TextureAtlas> tileSetAtlas = new AssetDescriptor<>("map/tileset.atlas", TextureAtlas.class);
+    public static final AssetDescriptor<BitmapFont> FONT_BIT = new AssetDescriptor<>("font/slkscr.ttf", BitmapFont.class);
+    public static final AssetDescriptor<Texture> LOAD_DIAMOND = new AssetDescriptor<>("image/load_diamond.png", Texture.class);
+    public static final AssetDescriptor<Texture> LIBGDX_LOGO = new AssetDescriptor<>("image/libgdx_logo.png", Texture.class);
+    public static final AssetDescriptor<TextureAtlas> PLAYER = new AssetDescriptor<>("image/player/player.atlas", TextureAtlas.class);
 
     private AssetManager manager;
 
@@ -31,11 +31,17 @@ public class Asset {
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
     }
 
-    public void loadFont(AssetDescriptor<BitmapFont> font, int size) {
-        FreetypeFontLoader.FreeTypeFontLoaderParameter mySmallFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        mySmallFont.fontFileName = font.fileName;
-        mySmallFont.fontParameters.size = (Gdx.graphics.getWidth() * size) / BaseScreen.VIRTUAL_WIDTH;
-        manager.load(font.fileName, BitmapFont.class, mySmallFont);
+    public void loadInitial() {
+        loadFont(Asset.FONT_BIT, 12);
+        load(Asset.LOAD_DIAMOND);
+        loadAll();
+    }
+
+    public void loadFont(AssetDescriptor<BitmapFont> fontDescriptor, int size) {
+        FreetypeFontLoader.FreeTypeFontLoaderParameter font = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        font.fontFileName = fontDescriptor.fileName;
+        font.fontParameters.size = (Gdx.graphics.getWidth() * size) / BaseScreen.VIRTUAL_WIDTH;
+        manager.load(fontDescriptor.fileName, BitmapFont.class, font);
     }
 
     public void load(AssetDescriptor assetDescriptor) {
@@ -66,7 +72,4 @@ public class Asset {
         manager.unload(loadDiamond.fileName);
     }
 
-    public int getCount() {
-        return manager.getLoadedAssets();
-    }
 }

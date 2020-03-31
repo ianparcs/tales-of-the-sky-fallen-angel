@@ -14,13 +14,13 @@ public class SplashScreen extends BaseScreen {
 
     SplashScreen(FallenAngel game) {
         super(game);
+        screenColor.set(0f, 0f, 0f, 0f);
     }
 
     @Override
     public void show() {
         OrthographicCamera camera = new OrthographicCamera(width, height);
         stage = new Stage(new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera));
-        screenColor.set(1f, 1f, 1f, 1f);
 
         libgdxSplash = new LibgdxSplash(asset);
         libgdxSplash.addToStage(stage);
@@ -28,6 +28,7 @@ public class SplashScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
+        super.resize(width, height);
         stage.getViewport().update(width, height);
     }
 
@@ -37,19 +38,18 @@ public class SplashScreen extends BaseScreen {
 
         if (libgdxSplash.isFinish()) {
             dispose();
-            screenManager.setScreen(new LevelScreen(game));
+            screenManager.setScreen(new MenuScreen(game));
         }
     }
 
     @Override
     public void render(float delta) {
-        super.render(delta);
         stage.draw();
     }
 
     @Override
     public void dispose() {
         stage.dispose();
-        asset.unload(Asset.libgdxLogo);
+        asset.unload(Asset.LIBGDX_LOGO);
     }
 }

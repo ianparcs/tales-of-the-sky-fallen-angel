@@ -15,7 +15,7 @@ public class Diamond extends Entity {
     private float stateTime = 0;
 
     public Diamond(Asset asset) {
-        Texture texture = asset.get(Asset.loadDiamond);
+        Texture texture = asset.get(Asset.LOAD_DIAMOND);
         TextureRegion[] loadFrames = TextureSplitter.split(texture, 2, 2);
         loadAnim = new Animation<>(0.15f, loadFrames);
     }
@@ -25,10 +25,10 @@ public class Diamond extends Entity {
         stateTime += delta;
         loadFrame = loadAnim.getKeyFrame(stateTime, true);
 
-        width = loadFrame.getRegionWidth() * 2f;
-        height = loadFrame.getRegionHeight() * 1.5f;
+        width = loadFrame.getRegionWidth();
+        height = loadFrame.getRegionHeight();
         x = (Gdx.graphics.getWidth() / 2f) - (width / 2f);
-        y = (Gdx.graphics.getHeight() / 2f) + (height / 2f);
+        y = (Gdx.graphics.getHeight() / 2f);
     }
 
     @Override

@@ -19,6 +19,10 @@ import com.sparcsky.tofts.fallenangel.screen.BaseScreen;
 
 public class LibgdxSplash extends Actor {
 
+    private static final float FADEOUT_TIME = 1.5f;
+    private static final float DELAY = 1f;
+    private static final int MAX_FADE = 5;
+
     private Array<Actor> flash;
     private Table table;
     private Label label;
@@ -31,7 +35,7 @@ public class LibgdxSplash extends Actor {
 
     public LibgdxSplash(Asset asset) {
 
-        Texture logo = asset.get(Asset.libgdxLogo);
+        Texture logo = asset.get(Asset.LIBGDX_LOGO);
         logo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         table = new Table();
@@ -46,27 +50,27 @@ public class LibgdxSplash extends Actor {
 
         bg = createBackground(virtualWidth, virtualHeight);
 
-        Label.LabelStyle style = new Label.LabelStyle(asset.get(Asset.fontBit), Color.BLACK);
+        Label.LabelStyle style = new Label.LabelStyle(asset.get(Asset.FONT_BIT), Color.DARK_GRAY);
         label = new Label("POWERED BY", style);
         label.setPosition(x, y + height + label.getHeight() / 2f);
 
         flash = new Array<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < MAX_FADE; i++) {
             Actor actor = new Image(logo);
             actor.setSize(width, height);
             actor.setX(-actor.getWidth() - (i * actor.getWidth()));
             actor.setY(y);
 
-            AlphaAction logoFadeOut = Actions.fadeOut(4);
-            MoveToAction moveAction = createMoveAction(5);
+            AlphaAction logoFadeOut = Actions.fadeOut(5);
+            MoveToAction moveAction = createMoveAction();
 
             if (i == 0) {
                 actor.addAction(Actions.sequence(moveAction, new RunnableAction() {
                     @Override
                     public void run() {
-                        actor.addAction(Actions.sequence(Actions.delay(1.5f), Actions.fadeOut(2)));
-                        label.addAction(Actions.sequence(Actions.delay(1.5f), Actions.fadeOut(2)));
-                        bg.addAction(Actions.sequence(Actions.delay(1.5f), Actions.color(Color.BLACK, 2),
+                        actor.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
+                        label.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
+                        bg.addAction(Actions.sequence(Actions.delay(DELAY), Actions.color(Color.BLACK, FADEOUT_TIME),
                                 new RunnableAction() {
                                     @Override
                                     public void run() {
@@ -82,11 +86,11 @@ public class LibgdxSplash extends Actor {
         }
     }
 
-    private MoveToAction createMoveAction(float duration) {
+    private MoveToAction createMoveAction() {
         MoveToAction moveAction = Actions.action(MoveToAction.class);
         moveAction.setInterpolation(Interpolation.exp10);
         moveAction.setPosition(x, y);
-        moveAction.setDuration(duration);
+        moveAction.setDuration((float) 5);
         return moveAction;
     }
 
