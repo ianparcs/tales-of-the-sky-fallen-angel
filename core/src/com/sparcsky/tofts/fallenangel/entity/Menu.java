@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -20,6 +21,8 @@ import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.util.Renderable;
 import com.sparcsky.tofts.fallenangel.util.Updatable;
 import com.sparcsky.tofts.fallenangel.util.factory.GuiFactory;
+
+import static com.badlogic.gdx.math.Interpolation.fastSlow;
 
 public class Menu implements Disposable, Renderable, Updatable {
 
@@ -54,10 +57,16 @@ public class Menu implements Disposable, Renderable, Updatable {
         String[] optionText1 = {"Play", "Load", "Settings", "Credits", "Exit"};
         for (String optionText : optionText1) {
             TextButton option = GuiFactory.createOptions(optionText, skin);
-            option.addListener(new ClickListener(){
+            option.addListener(new ClickListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                    keyboardType.play();
+                    // keyboardType.play();
+                    option.addAction(Actions.scaleTo(1.1f, 1.1f, .15f, fastSlow));
+                }
+
+                @Override
+                public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                    option.addAction(Actions.scaleTo(1f, 1f, .35f, fastSlow));
                 }
             });
             menuWindow.add(option).top().padBottom(Value.percentHeight(0.2f)).row();

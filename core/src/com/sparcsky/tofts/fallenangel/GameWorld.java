@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sparcsky.tofts.fallenangel.util.factory.Box2DBuilder;
 import com.sparcsky.tofts.fallenangel.util.Physics;
+import com.sparcsky.tofts.fallenangel.util.factory.Box2DBuilder;
 
 public class GameWorld {
 

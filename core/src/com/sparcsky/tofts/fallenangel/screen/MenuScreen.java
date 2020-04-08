@@ -28,7 +28,7 @@ public class MenuScreen extends BaseScreen {
     private ParallaxBackground landscapeParallax;
     private ParallaxBackground groundParallax;
 
-/*    private ParticleEffect particleEffect;*/
+    /*    private ParticleEffect particleEffect;*/
 
     MenuScreen(FallenAngel game) {
         super(game);
@@ -86,7 +86,7 @@ public class MenuScreen extends BaseScreen {
         menu.update(delta);
         sun.update(delta);
 
-    /*    particleEffect.update(delta);*/
+        /*    particleEffect.update(delta);*/
         player.update(delta);
         world.update();
 

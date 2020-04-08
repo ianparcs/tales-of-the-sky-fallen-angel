@@ -24,7 +24,7 @@ public class ParallaxFactory {
                 new Vector2(0, worldHeight));
 
         return new ParallaxBackground(new ParallaxLayer[]{cloudBack, cloudFront, sea},
-                worldWidth , worldHeight, new Vector2(25, 0));
+                worldWidth, worldHeight, new Vector2(25, 0));
     }
 
     public static ParallaxBackground createGround(Asset asset, int worldWidth, int worldHeight) {
@@ -35,7 +35,7 @@ public class ParallaxFactory {
                 new Vector2(0, worldHeight * 3));
 
         return new ParallaxBackground(new ParallaxLayer[]{fargrounds},
-                worldWidth , worldHeight, new Vector2(25, 0));
+                worldWidth, worldHeight, new Vector2(25, 0));
     }
 
 

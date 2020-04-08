@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.sparcsky.tofts.fallenangel.util.Physics;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
+import com.sparcsky.tofts.fallenangel.util.Physics;
 
 public class Player extends DynamicEntity {
 
