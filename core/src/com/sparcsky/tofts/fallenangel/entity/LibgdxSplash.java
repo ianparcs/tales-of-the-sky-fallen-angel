@@ -12,16 +12,17 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
-import com.sparcsky.tofts.fallenangel.screen.BaseScreen;
 
 public class LibgdxSplash extends Actor {
 
     private static final float FADEOUT_TIME = 1.5f;
     private static final float DELAY = 1f;
-    private static final int MAX_FADE = 5;
+
+    private static final int MAX_FADER_COUNT = 5;
 
     private Array<Actor> flash;
     private Table table;
@@ -33,29 +34,25 @@ public class LibgdxSplash extends Actor {
 
     private boolean finish;
 
-    public LibgdxSplash(Asset asset) {
+    public LibgdxSplash(Asset asset, int worldWidth, int worldHeight) {
+        Skin skin = asset.get(Asset.SKIN_UI);
 
-        Texture logo = asset.get(Asset.LIBGDX_LOGO);
+        Texture logo = asset.get(Asset.IMAGE_LIBGDX_LOGO);
         logo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         table = new Table();
 
-        int virtualWidth = BaseScreen.VIRTUAL_WIDTH;
-        int virtualHeight = BaseScreen.VIRTUAL_HEIGHT;
-
         float width = logo.getWidth() / 5f;
         float height = logo.getHeight() / 5f;
-        this.x = (virtualWidth / 2f) - (width / 2f);
-        this.y = (virtualHeight / 2f) - (height / 2f);
+        this.x = (worldWidth / 2f) - (width / 2f);
+        this.y = (worldHeight / 2f) - (height / 2f);
 
-        bg = createBackground(virtualWidth, virtualHeight);
-
-        Label.LabelStyle style = new Label.LabelStyle(asset.get(Asset.FONT_BIT), Color.DARK_GRAY);
-        label = new Label("POWERED BY", style);
+        bg = createBackground(worldWidth, worldHeight);
+        label = new Label("POWERED BY", skin, "splash");
         label.setPosition(x, y + height + label.getHeight() / 2f);
 
         flash = new Array<>();
-        for (int i = 0; i < MAX_FADE; i++) {
+        for (int i = 0; i < MAX_FADER_COUNT; i++) {
             Actor actor = new Image(logo);
             actor.setSize(width, height);
             actor.setX(-actor.getWidth() - (i * actor.getWidth()));
@@ -88,9 +85,9 @@ public class LibgdxSplash extends Actor {
 
     private MoveToAction createMoveAction() {
         MoveToAction moveAction = Actions.action(MoveToAction.class);
-        moveAction.setInterpolation(Interpolation.exp10);
+        moveAction.setInterpolation(Interpolation.swing);
         moveAction.setPosition(x, y);
-        moveAction.setDuration((float) 5);
+        moveAction.setDuration((float) 4);
         return moveAction;
     }
 

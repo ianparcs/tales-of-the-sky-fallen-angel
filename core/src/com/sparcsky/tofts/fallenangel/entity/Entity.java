@@ -9,11 +9,9 @@ public abstract class Entity {
     protected float width;
     protected float height;
 
-     abstract void update(float delta);
+    abstract void update(float delta);
 
-    public void draw(SpriteBatch batch) {
-
-    }
+    abstract void render(SpriteBatch batch);
 
     public float getWidth() {
         return width;
@@ -47,7 +45,7 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }

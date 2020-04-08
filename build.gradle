@@ -28,6 +28,7 @@ allprojects {
         box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        typingLabelVersion = '1.2.0'
     }
 
     repositories {
@@ -106,10 +107,12 @@ project(":core") {
 
 
     dependencies {
+        api "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         
     }
 }

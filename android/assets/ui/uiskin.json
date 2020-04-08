@@ -1,0 +1,45 @@
+{
+  BitmapFont: {
+    Adventurer: {
+      file: font/Adventurer.fnt
+    }
+    Adventurer_title: {
+      file: font/Adventurer_title.fnt
+    }
+  }
+  Color: {
+    gray: {
+      r: 0.2
+      g: 0.2
+      b: 0.2
+      a: 1
+    }
+    white: { hex: #ffffff }
+  }
+  LabelStyle: {
+    splash: {
+      font: Adventurer
+      fontColor: gray
+    }
+    title: {
+      font: Adventurer_title
+      background: window
+      fontColor: white
+    }
+  }
+  TextButtonStyle: {
+    menu_option: {
+      font: Adventurer
+      up: button
+      down: button-press
+      over: button-hover
+    }
+  }
+
+  WindowStyle: {
+    default: {
+      background: window
+      titleFont: Adventurer_title
+    }
+  }
+}

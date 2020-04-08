@@ -11,10 +11,10 @@ import com.sparcsky.tofts.fallenangel.screen.ScreenManager;
 
 public class FallenAngel extends Game {
 
-    public Asset asset;
-    public SpriteBatch render;
     public ScreenManager screenManager;
+    public SpriteBatch render;
     public Color screenColor;
+    public Asset asset;
 
     @Override
     public void create() {
@@ -22,7 +22,6 @@ public class FallenAngel extends Game {
         screenColor = new Color();
 
         asset = new Asset();
-        asset.loadInitial();
 
         screenManager = new ScreenManager(this);
         screenManager.setScreen(new LoadScreen(this));

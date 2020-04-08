@@ -1,0 +1,34 @@
+
+parallax.png
+size: 4096,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+clouds
+  rotate: false
+  xy: 3076, 248
+  size: 544, 236
+  orig: 544, 236
+  offset: 0, 0
+  index: -1
+ground
+  rotate: false
+  xy: 0, 0
+  size: 3072, 484
+  orig: 3072, 576
+  offset: 0, 0
+  index: -1
+sea
+  rotate: false
+  xy: 3076, 148
+  size: 112, 96
+  orig: 112, 96
+  offset: 0, 0
+  index: -1
+sky
+  rotate: false
+  xy: 3624, 180
+  size: 112, 304
+  orig: 112, 304
+  offset: 0, 0
+  index: -1
