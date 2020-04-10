@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="128" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="40" nextobjectid="64">
- <objectgroup id="39" name="ground">
-  <object id="61" x="0" y="352">
-   <polyline points="0,-16 2048,-16"/>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="64" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="41" nextobjectid="72">
+ <objectgroup id="40" name="ground">
+  <object id="71" x="0" y="336">
+   <polyline points="0,0 1040,0"/>
   </object>
  </objectgroup>
 </map>

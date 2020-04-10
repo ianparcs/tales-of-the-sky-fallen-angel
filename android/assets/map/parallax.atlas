@@ -6,28 +6,28 @@ filter: Nearest,Nearest
 repeat: none
 clouds
   rotate: false
-  xy: 3076, 248
+  xy: 2054, 227
   size: 544, 236
   orig: 544, 236
   offset: 0, 0
   index: -1
 ground
   rotate: false
-  xy: 0, 0
-  size: 3072, 484
-  orig: 3072, 576
+  xy: 0, 102
+  size: 2048, 361
+  orig: 2048, 480
   offset: 0, 0
   index: -1
 sea
   rotate: false
-  xy: 3076, 148
+  xy: 0, 0
   size: 112, 96
   orig: 112, 96
   offset: 0, 0
   index: -1
 sky
   rotate: false
-  xy: 3624, 180
+  xy: 2604, 159
   size: 112, 304
   orig: 112, 304
   offset: 0, 0

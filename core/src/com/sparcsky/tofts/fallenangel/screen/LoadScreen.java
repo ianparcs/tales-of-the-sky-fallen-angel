@@ -1,5 +1,6 @@
 package com.sparcsky.tofts.fallenangel.screen;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.Timer;
@@ -13,6 +14,7 @@ public class LoadScreen extends BaseScreen {
     private String[] dots = {" ", ".", "..", "..."};
     private GlyphLayout layout;
     private Diamond diamond;
+    private BitmapFont font;
     private int dotIndex;
 
     public LoadScreen(FallenAngel game) {
@@ -29,10 +31,10 @@ public class LoadScreen extends BaseScreen {
     public void show() {
         setDotsTimer();
 
-        mainFont = asset.get(Asset.FONT_ADVENTURER);
+        font = asset.get(Asset.FONT_ADVENTURER);
         diamond = new Diamond(asset);
 
-        viewport = new FillViewport(worldWidth, worldHeight);
+        worldViewport = new FillViewport(worldWidth, worldHeight);
     }
 
     private void setDotsTimer() {
@@ -60,13 +62,13 @@ public class LoadScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         String loadResource = "Loading resources";
-        layout.setText(mainFont, loadResource);
+        layout.setText(font, loadResource);
         float loadResourceX = (diamond.getX() + diamond.getWidth() / 2f) - layout.width / 2f;
         float loadResourceY = diamond.getY() - layout.height / 2f;
 
         float progress = (asset.getProgress() * 100.00f);
         String loadProgress = (int) progress + "%";
-        layout.setText(mainFont, loadProgress);
+        layout.setText(font, loadProgress);
         float loadProgressX = (diamond.getX() + diamond.getWidth() / 2f) - layout.width / 2f;
         float loadProgressY = diamond.getY() + layout.height / 2f;
 
@@ -74,15 +76,15 @@ public class LoadScreen extends BaseScreen {
 
         batch.begin();
         diamond.render(batch);
-        mainFont.draw(batch, loadProgress, loadProgressX, loadProgressY);
-        mainFont.draw(batch, loadFullName, loadResourceX, loadResourceY);
+        font.draw(batch, loadProgress, loadProgressX, loadProgressY);
+        font.draw(batch, loadFullName, loadResourceX, loadResourceY);
         batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        worldViewport.update(width, height, true);
+        batch.setProjectionMatrix(worldViewport.getCamera().combined);
     }
 
     @Override

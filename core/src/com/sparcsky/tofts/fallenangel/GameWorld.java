@@ -17,7 +17,6 @@ public class GameWorld {
 
     private Box2DDebugRenderer debugRenderer;
     private TiledMapRenderer tiledMap;
-    private OrthographicCamera camera;
     private Viewport viewport;
     private World world;
 
@@ -30,11 +29,11 @@ public class GameWorld {
     }
 
     public void update() {
-        tiledMap.setView(camera);
+        tiledMap.setView(getCam());
         world.step(Physics.TIME_STEP, 6, 2);
 
         boolean debug = !Gdx.input.isKeyPressed(Input.Keys.Q);
-        if (debug) debugRenderer.render(world, camera.combined);
+        if (debug) debugRenderer.render(world, getCam().combined);
     }
 
     public void render() {
@@ -47,7 +46,10 @@ public class GameWorld {
 
     public void setViewport(Viewport viewport) {
         this.viewport = viewport;
-        this.camera = (OrthographicCamera) viewport.getCamera();
+    }
+
+    private OrthographicCamera getCam() {
+        return (OrthographicCamera) viewport.getCamera();
     }
 
     public void dispose() {

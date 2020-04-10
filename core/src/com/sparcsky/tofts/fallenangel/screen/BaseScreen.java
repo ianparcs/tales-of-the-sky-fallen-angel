@@ -2,7 +2,6 @@ package com.sparcsky.tofts.fallenangel.screen;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
@@ -12,9 +11,9 @@ public abstract class BaseScreen implements Screen {
 
     int worldWidth = 1024;
     int worldHeight = 768;
+
     ScreenManager screenManager;
-    BitmapFont mainFont;
-    Viewport viewport;
+    Viewport worldViewport;
     SpriteBatch batch;
     Color screenColor;
     FallenAngel game;

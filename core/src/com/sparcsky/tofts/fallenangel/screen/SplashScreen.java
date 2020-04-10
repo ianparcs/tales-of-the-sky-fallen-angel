@@ -21,8 +21,8 @@ public class SplashScreen extends BaseScreen {
 
     @Override
     public void show() {
-        viewport = new FillViewport(worldWidth, worldHeight);
-        stage = new Stage(viewport);
+        worldViewport = new FillViewport(worldWidth, worldHeight);
+        stage = new Stage(worldViewport);
 
         libgdxSplash = new LibgdxSplash(asset, worldWidth, worldHeight);
         libgdxSplash.addToStage(stage);

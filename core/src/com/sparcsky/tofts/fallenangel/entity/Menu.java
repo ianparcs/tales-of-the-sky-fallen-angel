@@ -14,17 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rafaskoberg.gdx.typinglabel.TypingAdapter;
 import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
-import com.sparcsky.tofts.fallenangel.util.Renderable;
+import com.sparcsky.tofts.fallenangel.util.Graphics;
 import com.sparcsky.tofts.fallenangel.util.Updatable;
 import com.sparcsky.tofts.fallenangel.util.factory.GuiFactory;
 
 import static com.badlogic.gdx.math.Interpolation.fastSlow;
 
-public class Menu implements Disposable, Renderable, Updatable {
+public class Menu implements Disposable, Graphics, Updatable {
 
     private Table menuWindow;
     private Table root;
@@ -35,7 +35,7 @@ public class Menu implements Disposable, Renderable, Updatable {
     private Sound keyboardType;
     private Music bgMusic;
 
-    public Menu(Asset asset, SpriteBatch batch, StretchViewport viewport) {
+    public Menu(Asset asset, SpriteBatch batch, Viewport viewport) {
         this.skin = asset.get(Asset.SKIN_UI);
         this.keyboardType = asset.get(Asset.SOUND_KEYBOARD_TYPE);
         this.bgMusic = asset.get(Asset.SOUND_WOODLAND_FANTASY);
@@ -60,7 +60,7 @@ public class Menu implements Disposable, Renderable, Updatable {
             option.addListener(new ClickListener() {
                 @Override
                 public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                    // keyboardType.play();
+                    keyboardType.play();
                     option.addAction(Actions.scaleTo(1.1f, 1.1f, .15f, fastSlow));
                 }
 
@@ -75,9 +75,10 @@ public class Menu implements Disposable, Renderable, Updatable {
 
     private void createTitle() {
         TypingLabel label = GuiFactory.createMenuTitle(skin);
+        label.setFontScale(1.05f);
         label.setTypingListener(new TypingAdapter() {
             @Override
-            public void event(String event) {
+            public void end() {
                 bgMusic.play();
                 bgMusic.setLooping(true);
             }

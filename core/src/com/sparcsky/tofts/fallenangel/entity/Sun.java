@@ -13,10 +13,11 @@ import box2dLight.RayHandler;
 
 public class Sun extends Entity {
 
-    private static final float MAX_PULSE_RATE = 100;
-    private static final float MIN_PULSE_RATE = 70;
-    private float ambientAlpha = 0.15f;
+    private static final float MAX_PULSE_RATE = 3;
+    private static final float MIN_PULSE_RATE = 2.5f;
+    private static final float MAX_SUNLIGHT_DISTANCE = 1500;
     private float sunRayDistance = 0;
+    private float sunLightDistance = -10;
     private float sunAlpha = 0.75f;
     private float circleMoveTime;
     private float pulseTimer;
@@ -25,6 +26,8 @@ public class Sun extends Entity {
 
     private Vector2 controlPoint;
     private PointLight sunLight;
+    private PointLight sunCore;
+
     private Vector2 startPoint;
     private Vector2 endPoint;
     private Color sunColor;
@@ -35,27 +38,28 @@ public class Sun extends Entity {
         this.width = width;
         this.height = height;
 
-        startPoint = new Vector2(-width / 3, height / 2);
-        endPoint = new Vector2(width, height);
+        startPoint = new Vector2(-MIN_PULSE_RATE, height / 2);
+        endPoint = new Vector2(width * 0.9f, height  * 0.9f);
 
         controlPoint = new Vector2();
         controlPoint.x = (endPoint.x - startPoint.x) / 2f;
-        controlPoint.y = height * 2;
+        controlPoint.y = height * 1.5f;
 
         initDefault();
-        sunLight = new PointLight(rayHandler, 500, sunColor, sunRayDistance, startPoint.x, startPoint.y);
+        sunLight = new PointLight(rayHandler, 500, sunColor, sunLightDistance, startPoint.x, startPoint.y);
+        sunCore = new PointLight(rayHandler, 50, sunColor, MIN_PULSE_RATE, startPoint.x, startPoint.y);
     }
 
     private void initDefault() {
         sunColor = new Color(1, 1, 1, 1);
-        sunRayDistance = 0;
-        ambientAlpha = 0.15f;
-        sunAlpha = 0.7f;
+        sunRayDistance = MIN_PULSE_RATE;
+        sunAlpha = 0.51f;
     }
 
     private void twilighting() {
-        sunColor.g = MathUtils.lerp(1.0f, 0.686f, alphaTimer * 200);
-        sunColor.b = MathUtils.lerp(1.0f, 0.0784f, alphaTimer * 200);
+        sunColor.g = MathUtils.lerp(1.0f, 215f / 255f, alphaTimer * 300);
+        sunColor.b = MathUtils.lerp(1.0f, 28f / 255f, alphaTimer * 300);
+        sunCore.setColor(sunColor.r, sunColor.g, sunColor.b, 1f);
         sunLight.setColor(sunColor.r, sunColor.g, sunColor.b, sunAlpha);
     }
 
@@ -67,6 +71,7 @@ public class Sun extends Entity {
         y = m3.y;
 
         sunLight.setPosition(x, y);
+        sunCore.setPosition(x, y);
     }
 
     private void move(float delta) {
@@ -78,50 +83,29 @@ public class Sun extends Entity {
             alpha++;
             Vector2 orbit = Physics.calculateOrbit(alpha, width, new Vector2(width / 2f, 0));
             sunLight.setPosition(orbit.x, orbit.y);
-
         }
     }
 
     private void pulsate(float delta) {
-        pulseTimer += 0.5 * delta;
+        if (sunLightDistance <= MAX_SUNLIGHT_DISTANCE) sunLightDistance++;
+
+        pulseTimer += 0.15f * delta;
         if (pulseTimer > 0.035f) {
             pulseTimer = 0;
             if (pulse) {
-                sunRayDistance++;
+                sunRayDistance += 0.08f;
                 if (sunRayDistance >= MAX_PULSE_RATE) pulse = false;
             }
             if (!pulse) {
-                sunRayDistance--;
+                sunRayDistance -= 0.08f;
                 if (sunRayDistance <= MIN_PULSE_RATE) pulse = true;
             }
         }
     }
 
-    private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) {
-            ambientAlpha += 0.0001f;
-            if (ambientAlpha >= 1.0f) ambientAlpha = 0;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
-            sunAlpha += 0.001f;
-            if (sunAlpha >= 1.0f) sunAlpha = 0;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) sunRayDistance++;
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) sunRayDistance--;
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) printData();
-    }
-
-    private void printData() {
-        System.out.println("ambientAlpha = " + ambientAlpha);
-        System.out.println("sunRayDistance = " + sunRayDistance);
-        System.out.println("sunAlpha = " + sunAlpha);
-        //System.out.println(((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / 1024f);
-    }
-
-
     @Override
     public void update(float delta) {
-        float speed = 0.0001f;
+        float speed = 0.00005f;
         alphaTimer += speed * delta;
         if (alphaTimer <= 1) {
             move();
@@ -133,8 +117,29 @@ public class Sun extends Entity {
 
     @Override
     public void render(SpriteBatch batch) {
-        sunLight.setDistance(sunRayDistance);
+        sunCore.setDistance(sunRayDistance);
+        sunLight.setDistance(sunLightDistance);
     }
 
+    private void handleInput() {
+      /*  if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) {
+            ambientAlpha += 0.0005f;
+            if (ambientAlpha >= 1.0f) ambientAlpha = 0;
+        }*/
+        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
+            sunAlpha += 0.001f;
+            if (sunAlpha >= 1.0f) sunAlpha = 0;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) sunLightDistance++;
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) sunLightDistance--;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) printData();
+    }
+
+    private void printData() {
+        /*System.out.println("ambientAlpha = " + ambientAlpha);*/
+        System.out.println("sunRayDistance = " + sunLightDistance);
+        System.out.println("sunAlpha = " + sunAlpha);
+        //System.out.println(((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())) / 1024f);
+    }
 
 }

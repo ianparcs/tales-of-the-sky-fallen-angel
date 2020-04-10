@@ -32,7 +32,7 @@ public class Player extends DynamicEntity {
         shape.setAsBox((width * 0.5f) / Physics.PPT, (height * 0.5f) / Physics.PPT);*/
 
         CircleShape shape = new CircleShape();
-        shape.setRadius((((width / Physics.PPT) * 0.5f) + (height / Physics.PPT) * 0.5f) / 2);
+        shape.setRadius((((width / Physics.PPT) * 0.5f) + (height / Physics.PPT) * 0.5f) / 4);
 
         FixtureDef fdef = new FixtureDef();
         fdef.shape = shape;

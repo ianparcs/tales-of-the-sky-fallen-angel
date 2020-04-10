@@ -8,12 +8,12 @@ public class ParallaxFactory {
 
     public static ParallaxBackground createLandscape(Asset asset, int worldWidth, int worldHeight) {
         TextureAtlas atlas = asset.get(Asset.TMX_PARALLAX);
-        ParallaxLayer cloudBack = new ParallaxLayer(atlas.findRegion("sky"),
+        ParallaxLayer sky = new ParallaxLayer(atlas.findRegion("sky"),
                 new Vector2(0, 1.0f),
                 new Vector2(0, 0),
                 new Vector2(0, worldHeight));
 
-        ParallaxLayer cloudFront = new ParallaxLayer(atlas.findRegion("clouds"),
+        ParallaxLayer clouds = new ParallaxLayer(atlas.findRegion("clouds"),
                 new Vector2(1, 1.0f),
                 new Vector2(0, 0),
                 new Vector2(0, worldHeight));
@@ -23,8 +23,8 @@ public class ParallaxFactory {
                 new Vector2(0, 0),
                 new Vector2(0, worldHeight));
 
-        return new ParallaxBackground(new ParallaxLayer[]{cloudBack, cloudFront, sea},
-                worldWidth, worldHeight, new Vector2(25, 0));
+        return new ParallaxBackground(new ParallaxLayer[]{sky, clouds, sea},
+                worldWidth, worldHeight, new Vector2(10, 0));
     }
 
     public static ParallaxBackground createGround(Asset asset, int worldWidth, int worldHeight) {
@@ -35,7 +35,7 @@ public class ParallaxFactory {
                 new Vector2(0, worldHeight * 3));
 
         return new ParallaxBackground(new ParallaxLayer[]{fargrounds},
-                worldWidth, worldHeight, new Vector2(25, 0));
+                worldWidth, worldHeight, new Vector2(20, 0));
     }
 
 
