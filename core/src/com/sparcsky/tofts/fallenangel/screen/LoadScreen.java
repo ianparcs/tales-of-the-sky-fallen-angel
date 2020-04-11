@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
+import com.sparcsky.tofts.fallenangel.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Diamond;
 
@@ -29,12 +30,22 @@ public class LoadScreen extends BaseScreen {
 
     @Override
     public void show() {
+        createDiamond();
         setDotsTimer();
+        createFont();
 
+        worldViewport = new FitViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
+    }
+
+    private void createFont() {
         font = asset.get(Asset.FONT_ADVENTURER);
-        diamond = new Diamond(asset);
+        font.getData().setScale(0.65f);
+        font.setUseIntegerPositions(false);
+    }
 
-        worldViewport = new FillViewport(worldWidth, worldHeight);
+    private void createDiamond() {
+        diamond = new Diamond(asset);
+        diamond.setSize(48, 48);
     }
 
     private void setDotsTimer() {
@@ -50,8 +61,8 @@ public class LoadScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         diamond.update(delta);
-        diamond.setX(worldWidth / 2f - (diamond.getWidth() / 2f));
-        diamond.setY(worldHeight / 2f);
+        diamond.setX(GameWorld.WIDTH / 2f - (diamond.getWidth() / 2f));
+        diamond.setY(GameWorld.HEIGHT / 2f);
 
         if (asset.isLoadFinish()) {
             dispose();
