@@ -27,7 +27,6 @@ import static com.badlogic.gdx.math.Interpolation.fastSlow;
 public class Menu implements Disposable, Graphics, Updatable {
 
     private Table menuWindow;
-    private Table root;
 
     private Stage stage;
     private Skin skin;
@@ -44,7 +43,7 @@ public class Menu implements Disposable, Graphics, Updatable {
         createTitle();
         createMenuOptions();
 
-        root = new Table();
+        Table root = new Table();
         root.setFillParent(true);
         root.add(menuWindow);
 
@@ -79,13 +78,13 @@ public class Menu implements Disposable, Graphics, Updatable {
         label.setTypingListener(new TypingAdapter() {
             @Override
             public void end() {
-                bgMusic.play();
+            //    bgMusic.play();
                 bgMusic.setLooping(true);
             }
 
             @Override
             public void onChar(Character ch) {
-                keyboardType.play();
+        //        keyboardType.play();
             }
         });
         menuWindow.add(label).padBottom(Value.percentHeight(0.1f)).row();
@@ -104,6 +103,11 @@ public class Menu implements Disposable, Graphics, Updatable {
     @Override
     public void render(SpriteBatch batch) {
         stage.draw();
+    }
+
+    @Override
+    public void render() {
+
     }
 
     @Override

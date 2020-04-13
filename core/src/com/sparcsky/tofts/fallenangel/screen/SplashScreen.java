@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
+import com.sparcsky.tofts.fallenangel.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.LibgdxSplash;
 
@@ -16,15 +17,13 @@ public class SplashScreen extends BaseScreen {
     SplashScreen(FallenAngel game) {
         super(game);
         screenColor.set(0f, 0f, 0f, 0f);
-
     }
 
     @Override
     public void show() {
-        worldViewport = new FillViewport(worldWidth, worldHeight);
+        worldViewport = new FillViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
         stage = new Stage(worldViewport);
-
-        libgdxSplash = new LibgdxSplash(asset, worldWidth, worldHeight);
+        libgdxSplash = new LibgdxSplash(asset);
         libgdxSplash.addToStage(stage);
     }
 
@@ -52,7 +51,7 @@ public class SplashScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

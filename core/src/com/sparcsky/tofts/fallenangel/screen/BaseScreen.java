@@ -9,9 +9,6 @@ import com.sparcsky.tofts.fallenangel.asset.Asset;
 
 public abstract class BaseScreen implements Screen {
 
-    int worldWidth = 1024;
-    int worldHeight = 768;
-
     ScreenManager screenManager;
     Viewport worldViewport;
     SpriteBatch batch;

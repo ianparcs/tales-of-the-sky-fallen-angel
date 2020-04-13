@@ -20,6 +20,7 @@ public class GuiFactory {
         TextButton option = new TextButton(text, skin, "menu_option");
         option.setOrigin(Align.center);
         option.getLabel().setAlignment(Align.center);
+        option.getLabel().setFontScale(0.8f);
         option.setTransform(true);
 
         return option;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
 import com.sparcsky.tofts.fallenangel.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
@@ -30,22 +30,18 @@ public class LoadScreen extends BaseScreen {
 
     @Override
     public void show() {
-        createDiamond();
+        worldViewport = new FillViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
+
         setDotsTimer();
-        createFont();
+        setFont();
 
-        worldViewport = new FitViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
-    }
-
-    private void createFont() {
-        font = asset.get(Asset.FONT_ADVENTURER);
-        font.getData().setScale(0.65f);
-        font.setUseIntegerPositions(false);
-    }
-
-    private void createDiamond() {
         diamond = new Diamond(asset);
-        diamond.setSize(48, 48);
+    }
+
+    private void setFont() {
+        font = asset.get(Asset.FONT_ADVENTURER);
+        font.getData().setScale((font.getScaleX() / 16f) / 2f, (font.getScaleY() / 16f) / 2f);
+        font.setUseIntegerPositions(false);
     }
 
     private void setDotsTimer() {

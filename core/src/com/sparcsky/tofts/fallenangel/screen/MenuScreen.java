@@ -6,18 +6,17 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
 import com.sparcsky.tofts.fallenangel.GameWorld;
-import com.sparcsky.tofts.fallenangel.ParticleController;
+import com.sparcsky.tofts.fallenangel.ParticleSystem;
+import com.sparcsky.tofts.fallenangel.WeatherSystem;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Menu;
 import com.sparcsky.tofts.fallenangel.entity.Player;
-import com.sparcsky.tofts.fallenangel.entity.Sun;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxBackground;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxFactory;
-import com.sparcsky.tofts.fallenangel.util.Physics;
 
 import box2dLight.RayHandler;
 
@@ -27,33 +26,33 @@ public class MenuScreen extends BaseScreen {
     private GameWorld world;
     private Player player;
     private Menu menu;
-    private Sun sun;
     private ParallaxBackground landscapeParallax;
     private ParallaxBackground groundParallax;
+    private WeatherSystem weatherSystem;
 
-    private ParticleController particles;
+    private ParticleSystem particles;
 
     MenuScreen(FallenAngel game) {
         super(game);
-        worldWidth = 480;
-        worldHeight = 270;
-        worldViewport = new FitViewport(worldWidth, worldHeight);
+        worldViewport = new StretchViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
     }
 
     @Override
     public void show() {
-        createMenuOptions();
+        createParallax();
         createGameWorld();
         createParticles();
-        createParallax();
         createPlayer();
+        createMenuOptions();
         setCursor();
+
+        // ((OrthographicCamera) worldViewport.getCamera()).zoom = 5f;
     }
 
     private void createParticles() {
         ParticleEffect particleEffect = asset.get(Asset.DATA_PARTICLE);
         ParticleEffectPool dustEffectPool = new ParticleEffectPool(particleEffect, 50, 200);
-        particles = new ParticleController(dustEffectPool);
+        particles = new ParticleSystem(dustEffectPool);
         particles.setCamera(worldViewport.getCamera());
     }
 
@@ -70,49 +69,45 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void createMenuOptions() {
-        Viewport viewport = new FitViewport(worldWidth * 1.5f, worldHeight * 1.5f);
+        Viewport viewport = new StretchViewport(GameWorld.WIDTH * 20, GameWorld.HEIGHT * 20);
         menu = new Menu(asset, batch, viewport);
     }
 
     private void createParallax() {
-        landscapeParallax = ParallaxFactory.createLandscape(asset, worldWidth, worldHeight);
-        groundParallax = ParallaxFactory.createGround(asset, worldWidth * 2, worldHeight * 2);
+        landscapeParallax = ParallaxFactory.createLandscape(asset);
+        groundParallax = ParallaxFactory.createGround(asset);
     }
 
     private void createGameWorld() {
-        float width = worldWidth / Physics.PPT;  // 64
-        float height = worldHeight / Physics.PPT; // 48
-
-        worldViewport = new FitViewport(width, height);
         TiledMap menuBg = asset.get(Asset.TMX_BACKGROUND);
-
         world = new GameWorld(menuBg);
         world.setViewport(worldViewport);
 
         rayHandler = new RayHandler(world.getWorld());
-        rayHandler.setAmbientLight(0.15f);
-        rayHandler.setShadows(false);
+        rayHandler.setShadows(true);
 
-        sun = new Sun(rayHandler, width, height);
+        weatherSystem = new WeatherSystem(rayHandler);
     }
 
-    @Override
-    public void update(float delta) {
-        particles.update(delta);
-        menu.update(delta);
-        sun.update(delta);
-
-        player.update(delta);
-        world.update();
-
+    private void updateWeather(float delta) {
+        weatherSystem.update(delta);
         rayHandler.setCombinedMatrix((OrthographicCamera) worldViewport.getCamera());
         rayHandler.update();
     }
 
     @Override
+    public void update(float delta) {
+        menu.update(delta);
+
+        player.update(delta);
+        world.update();
+        updateWeather(delta);
+    }
+
+    @Override
     public void render(float delta) {
         renderBackground(delta);
-        menu.render(batch);
+        //     menu.render(batch);
         particles.render(batch);
     }
 
@@ -120,11 +115,10 @@ public class MenuScreen extends BaseScreen {
         renderParallax(delta);
         world.render();
         renderPlayer();
-        renderSun();
+        renderWeather();
     }
 
-    private void renderSun() {
-        sun.render(batch);
+    private void renderWeather() {
         rayHandler.render();
     }
 
@@ -142,7 +136,6 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-        world.getViewport().update(width, height, true);
         worldViewport.update(width, height, true);
         menu.resize(width, height, true);
     }

@@ -1,5 +1,6 @@
 package com.sparcsky.tofts.fallenangel.entity;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Entity {
@@ -9,9 +10,9 @@ public abstract class Entity {
     protected float width;
     protected float height;
 
-    abstract void update(float delta);
+    protected abstract void update(float delta);
 
-    abstract void render(SpriteBatch batch);
+    protected abstract void render(SpriteBatch batch);
 
     public float getWidth() {
         return width;

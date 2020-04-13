@@ -12,5 +12,9 @@ public class Diamond extends DynamicEntity {
         Texture texture = asset.get(Asset.IMAGE_DIAMOND);
         TextureRegion[] loadFrames = TextureSplitter.split(texture, 2, 2);
         anim = new Animation<>(0.15f, loadFrames);
+        currentFrame = anim.getKeyFrame(stateTime, true);
+
+        width = (currentFrame.getRegionWidth() /  16f) / 2f;
+        height = (currentFrame.getRegionHeight() / 16f) / 2f;
     }
 }

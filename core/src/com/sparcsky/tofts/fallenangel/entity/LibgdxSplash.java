@@ -3,7 +3,9 @@ package com.sparcsky.tofts.fallenangel.entity;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -15,9 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
+import com.sparcsky.tofts.fallenangel.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 
-public class LibgdxSplash extends Actor {
+public class LibgdxSplash {
 
     private static final float FADEOUT_TIME = 1.5f;
     private static final float DELAY = 1f;
@@ -31,56 +34,81 @@ public class LibgdxSplash extends Actor {
 
     private float x;
     private float y;
+    private float width;
+    private float height;
 
     private boolean finish;
 
-    public LibgdxSplash(Asset asset, int worldWidth, int worldHeight) {
+    public LibgdxSplash(Asset asset) {
         Skin skin = asset.get(Asset.SKIN_UI);
 
         Texture logo = asset.get(Asset.IMAGE_LIBGDX_LOGO);
         logo.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
+        initProperties();
+
         table = new Table();
-
-        float width = logo.getWidth() / 5f;
-        float height = logo.getHeight() / 5f;
-        this.x = (worldWidth / 2f) - (width / 2f);
-        this.y = (worldHeight / 2f) - (height / 2f);
-
-        bg = createBackground(worldWidth, worldHeight);
-        label = new Label("POWERED BY", skin, "splash");
-        label.setPosition(x, y + height + label.getHeight() / 2f);
-
         flash = new Array<>();
+        bg = createBackground();
+        label = createLabel(skin);
+
         for (int i = 0; i < MAX_FADER_COUNT; i++) {
-            Actor actor = new Image(logo);
-            actor.setSize(width, height);
+            Actor actor = createActor(logo);
             actor.setX(-actor.getWidth() - (i * actor.getWidth()));
-            actor.setY(y);
 
             AlphaAction logoFadeOut = Actions.fadeOut(5);
-            MoveToAction moveAction = createMoveAction();
 
             if (i == 0) {
-                actor.addAction(Actions.sequence(moveAction, new RunnableAction() {
-                    @Override
-                    public void run() {
-                        actor.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
-                        label.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
-                        bg.addAction(Actions.sequence(Actions.delay(DELAY), Actions.color(Color.BLACK, FADEOUT_TIME),
-                                new RunnableAction() {
-                                    @Override
-                                    public void run() {
-                                        finish = true;
-                                    }
-                                }));
-                    }
-                }));
+                actor.addAction(createMainLogoActions());
             } else {
-                actor.addAction(Actions.parallel(moveAction, logoFadeOut));
+                actor.addAction(Actions.parallel(createMoveAction(), logoFadeOut));
             }
             flash.add(actor);
         }
+    }
+
+    private Actor createActor(Texture logo) {
+        Actor actor = new Image(logo);
+        actor.setSize(width, height);
+        actor.setY(y);
+        return actor;
+    }
+
+    private void initProperties() {
+        this.width = GameWorld.WIDTH / 2f;
+        this.height = GameWorld.HEIGHT / 8f;
+        this.x = (GameWorld.WIDTH / 2f) - (width / 2f);
+        this.y = (GameWorld.HEIGHT / 2f) - (height / 2f);
+    }
+
+    private Action createMainLogoActions() {
+        return Actions.sequence(createMoveAction(), new RunnableAction() {
+            @Override
+            public void run() {
+                actor.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
+                label.addAction(Actions.sequence(Actions.delay(DELAY), Actions.fadeOut(FADEOUT_TIME)));
+                bg.addAction(Actions.sequence(Actions.delay(DELAY), Actions.color(Color.BLACK, FADEOUT_TIME),
+                        new RunnableAction() {
+                            @Override
+                            public void run() {
+                                finish = true;
+                            }
+                        }));
+            }
+        });
+    }
+
+    private Label createLabel(Skin skin) {
+        BitmapFont font = skin.getFont("Adventurer");
+        font.getData().setScale(0.5f / 16f);
+        font.setUseIntegerPositions(false);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        labelStyle.fontColor = skin.getColor("gray");
+        Label label = new Label("POWERED BY", labelStyle);
+        label.setPosition(x, y + height + label.getHeight() / 2f);
+        return label;
     }
 
     private MoveToAction createMoveAction() {
@@ -91,7 +119,9 @@ public class LibgdxSplash extends Actor {
         return moveAction;
     }
 
-    private Actor createBackground(int width, int height) {
+    private Actor createBackground() {
+        int width = (int) GameWorld.WIDTH;
+        int height = (int) GameWorld.HEIGHT;
         Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
         pixmap.drawRectangle(width, height, width, height);
         pixmap.setColor(Color.WHITE);

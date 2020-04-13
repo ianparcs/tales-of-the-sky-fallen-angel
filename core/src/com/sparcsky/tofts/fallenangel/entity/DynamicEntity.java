@@ -15,8 +15,6 @@ public class DynamicEntity extends Entity {
     public void update(float delta) {
         stateTime += delta;
         currentFrame = anim.getKeyFrame(stateTime, true);
-        width = currentFrame.getRegionWidth();
-        height = currentFrame.getRegionHeight();
     }
 
     @Override

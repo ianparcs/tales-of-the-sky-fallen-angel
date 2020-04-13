@@ -15,6 +15,11 @@ import com.sparcsky.tofts.fallenangel.util.factory.Box2DBuilder;
 
 public class GameWorld {
 
+ /*   public static final float WIDTH = 480;
+    public static final float HEIGHT = WIDTH * 9f / 16f;*/
+    public static final float WIDTH = 32;
+    public static final float HEIGHT = WIDTH * 9f / 16f;
+
     private Box2DDebugRenderer debugRenderer;
     private TiledMapRenderer tiledMap;
     private Viewport viewport;
