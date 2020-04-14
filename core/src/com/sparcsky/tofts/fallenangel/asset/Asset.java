@@ -24,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class Asset {
 
     public static final AssetDescriptor<Texture> IMAGE_DIAMOND = new AssetDescriptor<>("image/load_diamond.png", Texture.class);
-    public static final AssetDescriptor<Texture> IMAGE_GROUND = new AssetDescriptor<>("image/ground.png", Texture.class);
     public static final AssetDescriptor<Texture> IMAGE_LIBGDX_LOGO = new AssetDescriptor<>("image/libgdx_logo.png", Texture.class);
 
     public static final AssetDescriptor<TextureAtlas> ATLAS_PLAYER = new AssetDescriptor<>("image/player/player.atlas", TextureAtlas.class);
@@ -75,8 +74,6 @@ public class Asset {
         manager.load(Asset.FON_TITLE);
         manager.load(Asset.ATLAS_UI);
         manager.load(Asset.SKIN_UI);
-        manager.load(Asset.IMAGE_GROUND);
-
     }
 
 

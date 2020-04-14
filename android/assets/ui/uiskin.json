@@ -1,9 +1,9 @@
 {
   BitmapFont: {
-    Adventurer: {
+    main: {
       file: font/Adventurer.fnt
     }
-    Adventurer_title: {
+    title: {
       file: font/Adventurer_title.fnt
     }
   }
@@ -18,18 +18,16 @@
   }
   LabelStyle: {
     splash: {
-      font: Adventurer
+      font: main
       fontColor: gray
     }
     title: {
-      font: Adventurer_title
-      background: window
-      fontColor: white
+      font: title
     }
   }
   TextButtonStyle: {
     menu_option: {
-      font: Adventurer
+      font: main
       up: button
       down: button-press
       over: button-hover
@@ -39,7 +37,7 @@
   WindowStyle: {
     default: {
       background: window
-      titleFont: Adventurer_title
+      titleFont: title
     }
   }
 }

@@ -7,9 +7,7 @@ public abstract class Physics {
     public static float PPT = 16f;
     public static float GRAVITY = -9.81f;
     public static float TIME_STEP = 1f / 60f;
-    public static float FULL_CIRCLE = 360f;
-    public static float STRAIGHT_LINE = 180f;
-    public static float REFLEX_ANGLE = 270f;
+
 
     public static Vector2 calculateOrbit(float currentOrbitDegrees, float distanceFromCenterPoint, Vector2 centerPoint) {
         double radians = (float) Math.toRadians(currentOrbitDegrees);

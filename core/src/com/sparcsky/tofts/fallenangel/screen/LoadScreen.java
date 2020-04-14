@@ -62,7 +62,7 @@ public class LoadScreen extends BaseScreen {
 
         if (asset.isLoadFinish()) {
             dispose();
-            screenManager.setScreen(new SplashScreen(game));
+            screenManager.setScreen(new MenuScreen(game));
         }
     }
 

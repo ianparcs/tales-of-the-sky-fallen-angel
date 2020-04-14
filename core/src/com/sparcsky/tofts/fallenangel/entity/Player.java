@@ -52,4 +52,7 @@ public class Player extends DynamicEntity {
         y = body.getPosition().y - (height / 2);
     }
 
+    public Body getBody() {
+        return body;
+    }
 }

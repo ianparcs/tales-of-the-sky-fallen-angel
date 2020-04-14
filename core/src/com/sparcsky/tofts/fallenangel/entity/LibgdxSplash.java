@@ -54,7 +54,7 @@ public class LibgdxSplash {
 
         for (int i = 0; i < MAX_FADER_COUNT; i++) {
             Actor actor = createActor(logo);
-            actor.setX(-actor.getWidth() - (i * actor.getWidth()));
+            actor.setX(-actor.getWidth() - (i * (actor.getWidth() / 2f)));
 
             AlphaAction logoFadeOut = Actions.fadeOut(5);
 

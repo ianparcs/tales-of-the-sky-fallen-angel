@@ -6,18 +6,20 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sparcsky.tofts.fallenangel.FallenAngel;
 import com.sparcsky.tofts.fallenangel.GameWorld;
-import com.sparcsky.tofts.fallenangel.ParticleSystem;
-import com.sparcsky.tofts.fallenangel.WeatherSystem;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Menu;
 import com.sparcsky.tofts.fallenangel.entity.Player;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxBackground;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxFactory;
+import com.sparcsky.tofts.fallenangel.system.ParticleSystem;
+import com.sparcsky.tofts.fallenangel.system.DayCycle;
 
+import box2dLight.ChainLight;
 import box2dLight.RayHandler;
 
 public class MenuScreen extends BaseScreen {
@@ -28,13 +30,14 @@ public class MenuScreen extends BaseScreen {
     private Menu menu;
     private ParallaxBackground landscapeParallax;
     private ParallaxBackground groundParallax;
-    private WeatherSystem weatherSystem;
+    private DayCycle dayCycle;
 
     private ParticleSystem particles;
+    private ChainLight chainLight;
 
     MenuScreen(FallenAngel game) {
         super(game);
-        worldViewport = new StretchViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
+        worldViewport = new FillViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
     }
 
     @Override
@@ -45,7 +48,6 @@ public class MenuScreen extends BaseScreen {
         createPlayer();
         createMenuOptions();
         setCursor();
-
         // ((OrthographicCamera) worldViewport.getCamera()).zoom = 5f;
     }
 
@@ -58,7 +60,7 @@ public class MenuScreen extends BaseScreen {
 
     private void createPlayer() {
         player = new Player(asset);
-        player.setPosition(32, 16 * 3);
+        player.setPosition(16 * 3, 16 * 3);
         player.define(world.getWorld());
     }
 
@@ -69,7 +71,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void createMenuOptions() {
-        Viewport viewport = new StretchViewport(GameWorld.WIDTH * 20, GameWorld.HEIGHT * 20);
+        Viewport viewport = new ExtendViewport(GameWorld.WIDTH * 20, GameWorld.HEIGHT * 20);
         menu = new Menu(asset, batch, viewport);
     }
 
@@ -86,11 +88,11 @@ public class MenuScreen extends BaseScreen {
         rayHandler = new RayHandler(world.getWorld());
         rayHandler.setShadows(true);
 
-        weatherSystem = new WeatherSystem(rayHandler);
+        dayCycle = new DayCycle(rayHandler);
     }
 
     private void updateWeather(float delta) {
-        weatherSystem.update(delta);
+        dayCycle.update(delta);
         rayHandler.setCombinedMatrix((OrthographicCamera) worldViewport.getCamera());
         rayHandler.update();
     }
@@ -107,7 +109,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         renderBackground(delta);
-        //     menu.render(batch);
+        menu.render(batch);
         particles.render(batch);
     }
 
@@ -137,6 +139,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void resize(int width, int height) {
         worldViewport.update(width, height, true);
+        rayHandler.setCombinedMatrix((OrthographicCamera) worldViewport.getCamera());
         menu.resize(width, height, true);
     }
 

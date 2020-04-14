@@ -1,4 +1,4 @@
-package com.sparcsky.tofts.fallenangel;
+package com.sparcsky.tofts.fallenangel.system;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;

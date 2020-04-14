@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.rafaskoberg.gdx.typinglabel.TypingAdapter;
@@ -53,6 +54,7 @@ public class Menu implements Disposable, Graphics, Updatable {
     }
 
     private void createMenuOptions() {
+        Table table = new Table();
         String[] optionText1 = {"Play", "Load", "Settings", "Credits", "Exit"};
         for (String optionText : optionText1) {
             TextButton option = GuiFactory.createOptions(optionText, skin);
@@ -68,23 +70,27 @@ public class Menu implements Disposable, Graphics, Updatable {
                     option.addAction(Actions.scaleTo(1f, 1f, .35f, fastSlow));
                 }
             });
-            menuWindow.add(option).top().padBottom(Value.percentHeight(0.2f)).row();
+            table.add(option)
+                    .width(Value.percentWidth(0.85f))
+                    .height(Value.percentHeight(0.80f))
+                    .padBottom(Value.percentHeight(0.1f))
+                    .row();
         }
+        menuWindow.add(table);
     }
 
     private void createTitle() {
         TypingLabel label = GuiFactory.createMenuTitle(skin);
-        label.setFontScale(1.05f);
         label.setTypingListener(new TypingAdapter() {
             @Override
             public void end() {
-            //    bgMusic.play();
+                bgMusic.play();
                 bgMusic.setLooping(true);
             }
 
             @Override
             public void onChar(Character ch) {
-        //        keyboardType.play();
+                keyboardType.play();
             }
         });
         menuWindow.add(label).padBottom(Value.percentHeight(0.1f)).row();
