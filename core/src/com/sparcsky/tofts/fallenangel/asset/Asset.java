@@ -31,7 +31,7 @@ public class Asset {
     public static final AssetDescriptor<Skin> SKIN_UI = new AssetDescriptor<>("ui/uiskin.json", Skin.class, new SkinLoader.SkinParameter("ui/uiskin.atlas"));
 
     public static final AssetDescriptor<BitmapFont> FONT_ADVENTURER = new AssetDescriptor<>("ui/font/Adventurer.fnt", BitmapFont.class);
-    public static final AssetDescriptor<BitmapFont> FON_TITLE = new AssetDescriptor<>("ui/font/Adventurer_title.fnt", BitmapFont.class);
+    public static final AssetDescriptor<BitmapFont> FONT_TITLE = new AssetDescriptor<>("ui/font/Adventurer_title.fnt", BitmapFont.class);
 
     public static final AssetDescriptor<Music> SOUND_WOODLAND_FANTASY = new AssetDescriptor<>("sound/Woodland_Fantasy.mp3", Music.class);
     public static final AssetDescriptor<Sound> SOUND_KEYBOARD_TYPE = new AssetDescriptor<>("sound/keyboard-1.wav", Sound.class);
@@ -71,11 +71,17 @@ public class Asset {
         manager.load(Asset.DATA_PARTICLE);
         manager.load(Asset.ATLAS_PLAYER);
         manager.load(Asset.TMX_PARALLAX);
-        manager.load(Asset.FON_TITLE);
+        manager.load(Asset.FONT_TITLE);
         manager.load(Asset.ATLAS_UI);
         manager.load(Asset.SKIN_UI);
     }
 
+    public void setFontUseIntegerPositions() {
+        BitmapFont titleFont = manager.get(Asset.FONT_TITLE);
+        BitmapFont mainFont = manager.get(Asset.FONT_ADVENTURER);
+        titleFont.setUseIntegerPositions(false);
+        mainFont.setUseIntegerPositions(false);
+    }
 
     public void loadFinish() {
         manager.finishLoading();

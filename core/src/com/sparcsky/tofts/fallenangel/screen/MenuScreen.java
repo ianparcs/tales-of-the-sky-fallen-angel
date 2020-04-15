@@ -16,28 +16,27 @@ import com.sparcsky.tofts.fallenangel.entity.Menu;
 import com.sparcsky.tofts.fallenangel.entity.Player;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxBackground;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxFactory;
+import com.sparcsky.tofts.fallenangel.system.WeatherCycle;
 import com.sparcsky.tofts.fallenangel.system.ParticleSystem;
-import com.sparcsky.tofts.fallenangel.system.DayCycle;
 
-import box2dLight.ChainLight;
 import box2dLight.RayHandler;
 
 public class MenuScreen extends BaseScreen {
 
+    private ParallaxBackground landscapeParallax;
+    private ParallaxBackground groundParallax;
     private RayHandler rayHandler;
+    private WeatherCycle weatherCycle;
     private GameWorld world;
     private Player player;
     private Menu menu;
-    private ParallaxBackground landscapeParallax;
-    private ParallaxBackground groundParallax;
-    private DayCycle dayCycle;
 
     private ParticleSystem particles;
-    private ChainLight chainLight;
 
     MenuScreen(FallenAngel game) {
         super(game);
         worldViewport = new FillViewport(GameWorld.WIDTH, GameWorld.HEIGHT);
+        asset.setFontUseIntegerPositions();
     }
 
     @Override
@@ -73,6 +72,7 @@ public class MenuScreen extends BaseScreen {
     private void createMenuOptions() {
         Viewport viewport = new ExtendViewport(GameWorld.WIDTH * 20, GameWorld.HEIGHT * 20);
         menu = new Menu(asset, batch, viewport);
+
     }
 
     private void createParallax() {
@@ -88,11 +88,11 @@ public class MenuScreen extends BaseScreen {
         rayHandler = new RayHandler(world.getWorld());
         rayHandler.setShadows(true);
 
-        dayCycle = new DayCycle(rayHandler);
+        weatherCycle = new WeatherCycle(rayHandler);
     }
 
     private void updateWeather(float delta) {
-        dayCycle.update(delta);
+        weatherCycle.update(delta);
         rayHandler.setCombinedMatrix((OrthographicCamera) worldViewport.getCamera());
         rayHandler.update();
     }
@@ -100,10 +100,11 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         menu.update(delta);
-
         player.update(delta);
         world.update();
         updateWeather(delta);
+
+
     }
 
     @Override

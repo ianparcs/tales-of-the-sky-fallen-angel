@@ -28,11 +28,10 @@ public class GuiFactory {
         font.setUseIntegerPositions(false);
 
         TextButton option = new TextButton(text, skin, "menu_option");
-        option.setOrigin(Align.center);
         option.getLabel().setAlignment(Align.center);
-        option.getLabel().setFontScale(0.55f);
+        option.getLabel().setFontScale(0.5f);
+        option.setOrigin(Align.top);
         option.setTransform(true);
-
         return option;
     }
 }

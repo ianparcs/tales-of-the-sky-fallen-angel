@@ -3,6 +3,10 @@
     main: {
       file: font/Adventurer.fnt
     }
+    small: {
+      file: font/Adventurer.fnt
+      scaledSize:5
+    }
     title: {
       file: font/Adventurer_title.fnt
     }
@@ -23,6 +27,10 @@
     }
     title: {
       font: title
+    }
+    normal: {
+      font: small
+      fontColor: white
     }
   }
   TextButtonStyle: {

@@ -10,7 +10,7 @@ import com.sparcsky.tofts.fallenangel.util.math.Angle;
 import box2dLight.ChainLight;
 import box2dLight.RayHandler;
 
-public class DayCycle {
+public class WeatherCycle {
 
     private float raysDistance;
     private RayHandler rayHandler;
@@ -20,7 +20,7 @@ public class DayCycle {
     private Color dayLightColor;
     private ChainLight chainLight;
 
-    public DayCycle(RayHandler rayHandler) {
+    public WeatherCycle(RayHandler rayHandler) {
         this.rayHandler = rayHandler;
         rayHandler.setShadows(true);
         rayHandler.setAmbientLight(0.80f);
@@ -31,7 +31,7 @@ public class DayCycle {
 
         float[] vertex = new float[]
                 {0, 3, 33, 3};
-        chainLight = new ChainLight(rayHandler, 128, moon.getColor(), 0, 1, vertex);
+        chainLight = new ChainLight(rayHandler, 128, moon.getColor(), 0.5f, 1, vertex);
         chainLight.setSoftnessLength(15);
     }
 
@@ -61,7 +61,7 @@ public class DayCycle {
         dayLightColor.g = MathUtils.lerp(180f, 150f, dayAlpha);
         raysDistance = Math.abs(MathUtils.lerp(500, 0, dayAlpha));
 
-        float ambient = MathUtils.lerp(0.80f, 0.30f, dayAlpha);
+        float ambient = MathUtils.lerp(0.80f, 0.25f, dayAlpha);
         rayHandler.setAmbientLight(ambient);
     }
 
@@ -74,7 +74,7 @@ public class DayCycle {
         dayLightColor.b = MathUtils.lerp(20f, 180f, duskAlpha);
         dayLightColor.g = MathUtils.lerp(200f, 180f, duskAlpha);
         raysDistance = Math.abs(MathUtils.lerp(0, 500, duskAlpha));
-        float ambient = MathUtils.lerp(0.30f, 0.80f, duskAlpha);
+        float ambient = MathUtils.lerp(0.25f, 0.80f, duskAlpha);
         rayHandler.setAmbientLight(ambient);
     }
 
@@ -83,8 +83,8 @@ public class DayCycle {
         moon.orbit(delta);
     }
 
-    public boolean isNight() {
-        return sun.getOrbitDegrees() > Angle.STRAIGHT && sun.getOrbitDegrees() < Angle.FULL;
+    private boolean isNight() {
+        return moon.getOrbitDegrees() < Angle.STRAIGHT && moon.getOrbitDegrees() > 0;
     }
 
     private void makeGlowNight() {
@@ -92,12 +92,12 @@ public class DayCycle {
         float midnightAlpha;
         float glow;
 
-        if (moonDegrees <= Angle.STRAIGHT && moonDegrees >= Angle.RIGHT) {
+        if (moonDegrees < Angle.STRAIGHT && moonDegrees > Angle.RIGHT) {
             midnightAlpha = (moon.getOrbitDegrees() - 90) / 90f;
-            glow = MathUtils.lerp(4, 0.5f, midnightAlpha);
+            glow = MathUtils.lerp(3, 0.5f, midnightAlpha);
         } else {
             midnightAlpha = (moon.getOrbitDegrees()) / 90f;
-            glow = MathUtils.lerp(0.5f, 4, midnightAlpha);
+            glow = MathUtils.lerp(0.5f, 3, midnightAlpha);
         }
         chainLight.setDistance(glow);
     }
@@ -109,6 +109,5 @@ public class DayCycle {
     private boolean isDawn() {
         return sun.getOrbitDegrees() <= Angle.STRAIGHT && sun.getOrbitDegrees() >= Angle.RIGHT;
     }
-
 
 }
