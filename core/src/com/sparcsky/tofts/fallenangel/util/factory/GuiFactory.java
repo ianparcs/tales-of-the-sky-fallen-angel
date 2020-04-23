@@ -10,7 +10,7 @@ import com.rafaskoberg.gdx.typinglabel.TypingLabel;
 public class GuiFactory {
 
     public static TypingLabel createMenuTitle(Skin skin) {
-        String text = "{SLOW}{HANG}Tales of the SKY\nFALLEN KNIGHT{EVENT=play_sound}";
+        String text = "{SLOW}{HANG} Tales of the Sky {ENDHANG}\n{FADE}FALLEN KNIGHT";
 
         BitmapFont font = skin.getFont("title");
         font.setUseIntegerPositions(false);
@@ -23,13 +23,13 @@ public class GuiFactory {
         return label;
     }
 
-    public static TextButton createOptions(String text, Skin skin) {
+    public static TextButton createButton(String text, Skin skin) {
         BitmapFont font = skin.getFont("main");
         font.setUseIntegerPositions(false);
 
         TextButton option = new TextButton(text, skin, "menu_option");
         option.getLabel().setAlignment(Align.center);
-        option.getLabel().setFontScale(0.5f);
+        option.getLabel().setFontScale(0.55f);
         option.setOrigin(Align.top);
         option.setTransform(true);
         return option;

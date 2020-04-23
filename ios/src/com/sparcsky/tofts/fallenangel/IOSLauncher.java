@@ -5,7 +5,7 @@ import org.robovm.apple.uikit.UIApplication;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.sparcsky.tofts.fallenangel.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override

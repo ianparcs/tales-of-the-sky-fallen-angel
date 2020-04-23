@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
@@ -55,28 +56,26 @@ public class Menu implements Disposable, Graphics, Updatable {
         titleFont.setUseIntegerPositions(false);
 
         TypingLabel title = createTitle();
-        Table menuOptions = createMenuOptions();
+        Table options = createMenuOptions();
         Label copyright = createCopyrightLabel();
         Label version = createGameVersion();
 
         Table menuWindow = new Table(skin);
-        menuWindow.add(title).padBottom(Value.percentHeight(0.1f)).row();
-        menuWindow.padBottom(Value.percentHeight(0.1f));
-        menuWindow.add(menuOptions);
+        menuWindow.add(title).padBottom(Value.percentHeight(0.2f)).row();
+        menuWindow.add(options);
+        menuWindow.center();
+        menuWindow.padBottom(Value.percentHeight(0.05f)).row();
 
-        Table bottom = new Table();
-        bottom.add(copyright);
-        bottom.add(version);
+        Table infoWindow = new Table();
+        infoWindow.setFillParent(true);
+        infoWindow.add(copyright).expand().fill().bottom().left();
+        infoWindow.add(version).expand().fill().bottom().right();
+        infoWindow.pad(Value.Fixed.valueOf(5));
 
-        Table root = new Table();
+        Stack root = new Stack();
         root.setFillParent(true);
-        root.add(menuWindow).colspan(2).center().row();
-        root.add(copyright)
-                .padLeft(Value.percentWidth(0.01f))
-                .padBottom(Value.percentHeight(0.05f)).fill().expand();
-        root.add(version)
-                .padRight(Value.percentWidth(0.01f))
-                .padBottom(Value.percentHeight(0.05f)).fill().expand();
+        root.add(infoWindow);
+        root.add(menuWindow);
 
         stage = new Stage(viewport, batch);
         stage.addActor(root);
@@ -84,7 +83,7 @@ public class Menu implements Disposable, Graphics, Updatable {
     }
 
     private Label createCopyrightLabel() {
-        Label copyright = new Label("Copyright ©2020 Sparcsky", skin, "normal");
+        Label copyright = new Label("Copyright ©2020 Sparcsky Games", skin, "normal");
         copyright.setAlignment(Align.bottomLeft);
         return copyright;
     }
@@ -96,11 +95,11 @@ public class Menu implements Disposable, Graphics, Updatable {
     }
 
     private Table createMenuOptions() {
-        btnPlay = GuiFactory.createOptions("Play", skin);
-        btnLoad = GuiFactory.createOptions("Load", skin);
-        btnSettings = GuiFactory.createOptions("Settings", skin);
-        btnCredits = GuiFactory.createOptions("Credits", skin);
-        btnExit = GuiFactory.createOptions("Exit", skin);
+        btnPlay = GuiFactory.createButton("New Game", skin);
+        btnLoad = GuiFactory.createButton("Load", skin);
+        btnSettings = GuiFactory.createButton("Settings", skin);
+        btnCredits = GuiFactory.createButton("Credits", skin);
+        btnExit = GuiFactory.createButton("Exit", skin);
 
         addButtonToContainer(btnPlay);
         addButtonToContainer(btnLoad);
@@ -108,6 +107,10 @@ public class Menu implements Disposable, Graphics, Updatable {
         addButtonToContainer(btnCredits);
         addButtonToContainer(btnExit);
         return buttonContainer;
+    }
+
+    public TextButton getBtnPlay() {
+        return btnPlay;
     }
 
     private void addButtonToContainer(TextButton button) {
@@ -135,7 +138,7 @@ public class Menu implements Disposable, Graphics, Updatable {
         label.setTypingListener(new TypingAdapter() {
             @Override
             public void end() {
-                //      bgMusic.play();
+                bgMusic.play();
                 bgMusic.setLooping(true);
             }
 
@@ -166,5 +169,10 @@ public class Menu implements Disposable, Graphics, Updatable {
     public void dispose() {
         bgMusic.dispose();
         keyboardType.dispose();
+        stage.dispose();
+    }
+
+    public TextButton getBtnExit() {
+        return btnExit;
     }
 }

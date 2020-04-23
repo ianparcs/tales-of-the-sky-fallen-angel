@@ -1,4 +1,4 @@
-package com.sparcsky.tofts.fallenangel.entity;
+package com.sparcsky.tofts.fallenangel.entity.astronomy;
 
 import com.badlogic.gdx.graphics.Color;
 

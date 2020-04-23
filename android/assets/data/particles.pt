@@ -12,8 +12,8 @@ max: 30
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 15.0
+highMin: 4.0
+highMax: 10.0
 relative: false
 scalingCount: 1
 scaling0: 0.627451
@@ -37,8 +37,8 @@ active: false
 independent: false
 - X Offset - 
 active: true
-lowMin: 4.0
-lowMax: 4.0
+lowMin: 7.0
+lowMax: 7.0
 highMin: 0.0
 highMax: 0.0
 relative: false
@@ -125,8 +125,8 @@ timeline3: 1.0
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: -6.0
-highMax: -2.0
+highMin: -7.0
+highMax: -3.0
 relative: false
 scalingCount: 3
 scaling0: 0.0

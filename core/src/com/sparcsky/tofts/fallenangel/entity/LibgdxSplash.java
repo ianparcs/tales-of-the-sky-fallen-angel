@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
-import com.sparcsky.tofts.fallenangel.GameWorld;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 
 public class LibgdxSplash {
@@ -99,8 +99,8 @@ public class LibgdxSplash {
     }
 
     private Label createLabel(Skin skin) {
-        BitmapFont font = skin.getFont("Adventurer");
-        font.getData().setScale(0.5f / 16f);
+        BitmapFont font = skin.getFont("main");
+        font.getData().setScale(0.45f / 16f);
         font.setUseIntegerPositions(false);
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();

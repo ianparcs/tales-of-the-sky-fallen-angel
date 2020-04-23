@@ -4,21 +4,42 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class DynamicEntity extends Entity {
+public abstract class DynamicEntity extends Entity {
 
-    Animation<TextureRegion> anim;
-    TextureRegion currentFrame;
-
-    float stateTime = 0;
+    protected Animation<TextureRegion> animation;
+    protected TextureRegion currentFrame;
+    protected float stateTime = 0;
+    protected boolean flip;
 
     @Override
     public void update(float delta) {
         stateTime += delta;
-        currentFrame = anim.getKeyFrame(stateTime, true);
+        currentFrame = animation.getKeyFrame(stateTime, true);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(currentFrame, x, y, width, height);
+        if (currentFrame != null)
+            batch.draw(currentFrame, flip ? x + width : x, y, flip ? -width : width, height);
+    }
+
+    public void setStateTime(float stateTime) {
+        this.stateTime = stateTime;
+    }
+
+    public void setFlip(boolean flip) {
+        this.flip = flip;
+    }
+
+    public int getRegionWidth() {
+        return currentFrame.getRegionWidth();
+    }
+
+    public int getRegionHeight() {
+        return currentFrame.getRegionHeight();
+    }
+
+    public Animation<TextureRegion> getAnimation() {
+        return animation;
     }
 }

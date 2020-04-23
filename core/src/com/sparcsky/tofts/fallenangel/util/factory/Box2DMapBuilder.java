@@ -1,6 +1,5 @@
 package com.sparcsky.tofts.fallenangel.util.factory;
 
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
@@ -15,19 +14,21 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.sparcsky.tofts.fallenangel.util.Physics;
+import com.sparcsky.tofts.fallenangel.collision.Category;
+import com.sparcsky.tofts.fallenangel.util.physics.Physics;
 
-public class Box2DBuilder {
+public class Box2DMapBuilder {
 
 
     private static float ppt = Physics.PPT;
 
-    public static Array<Body> buildShapes(Map map, World world) {
-        MapObjects objects = map.getLayers().get("ground").getObjects();
+    public static Array<Body> buildShapes(MapObjects objects, World world) {
         Array<Body> bodies = new Array<>();
 
         for (MapObject object : objects) {
@@ -53,10 +54,24 @@ public class Box2DBuilder {
             BodyDef bd = new BodyDef();
             bd.type = BodyDef.BodyType.StaticBody;
             Body body = world.createBody(bd);
-            body.createFixture(shape, 1);
+            body.setUserData(object.getName());
+
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = shape;
+            fixtureDef.density = 1;
+            fixtureDef.friction = 1;
+            if (object.getName().equals("ground")) {
+                fixtureDef.filter.categoryBits = Category.GROUND;
+                fixtureDef.filter.maskBits = Category.GROUND;
+            } else if (object.getName().equals("wall")) {
+               fixtureDef.filter.categoryBits = Category.WALL;
+                fixtureDef.filter.maskBits = Category.ARM;
+            }
+
+            Fixture fixture = body.createFixture(fixtureDef);
+            fixture.setUserData(object.getName());
 
             bodies.add(body);
-
             shape.dispose();
         }
         return bodies;
@@ -110,4 +125,5 @@ public class Box2DBuilder {
         chain.createChain(worldVertices);
         return chain;
     }
+
 }

@@ -2,7 +2,7 @@ package com.sparcsky.tofts.fallenangel.parallax;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-import com.sparcsky.tofts.fallenangel.GameWorld;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 
 public class ParallaxFactory {
@@ -33,7 +33,7 @@ public class ParallaxFactory {
     public static ParallaxBackground createGround(Asset asset) {
         TextureAtlas atlas = asset.get(Asset.TMX_PARALLAX);
         ParallaxLayer fargrounds = new ParallaxLayer(atlas.findRegion("ground"),
-                new Vector2(5, 1.0f),
+                new Vector2(7, 1.0f),
                 new Vector2(0, 0),
                 new Vector2(0, scaledUpHeight));
 

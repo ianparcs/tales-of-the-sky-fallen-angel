@@ -6,20 +6,25 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sparcsky.tofts.fallenangel.FallenAngel;
-import com.sparcsky.tofts.fallenangel.GameWorld;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Menu;
-import com.sparcsky.tofts.fallenangel.entity.Player;
+import com.sparcsky.tofts.fallenangel.entity.player.StaticPlayer;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxBackground;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxFactory;
-import com.sparcsky.tofts.fallenangel.system.WeatherCycle;
 import com.sparcsky.tofts.fallenangel.system.ParticleSystem;
+import com.sparcsky.tofts.fallenangel.system.WeatherCycle;
 
 import box2dLight.RayHandler;
+
+import static com.sparcsky.tofts.fallenangel.util.physics.Physics.PPT;
 
 public class MenuScreen extends BaseScreen {
 
@@ -28,7 +33,7 @@ public class MenuScreen extends BaseScreen {
     private RayHandler rayHandler;
     private WeatherCycle weatherCycle;
     private GameWorld world;
-    private Player player;
+    private StaticPlayer player;
     private Menu menu;
 
     private ParticleSystem particles;
@@ -47,7 +52,23 @@ public class MenuScreen extends BaseScreen {
         createPlayer();
         createMenuOptions();
         setCursor();
-        // ((OrthographicCamera) worldViewport.getCamera()).zoom = 5f;
+
+        TextButton btnPlay = menu.getBtnPlay();
+        TextButton btnExit = menu.getBtnExit();
+
+        btnPlay.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                screenManager.setScreen(new NewGameScreen(game));
+            }
+        });
+        btnExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     private void createParticles() {
@@ -58,8 +79,9 @@ public class MenuScreen extends BaseScreen {
     }
 
     private void createPlayer() {
-        player = new Player(asset);
-        player.setPosition(16 * 3, 16 * 3);
+        player = new StaticPlayer(asset);
+        player.setPosition((16 * 5) / PPT, (16 * 3) / PPT);
+        player.setSize((48 / PPT), (32 / PPT));
         player.define(world.getWorld());
     }
 
@@ -103,7 +125,6 @@ public class MenuScreen extends BaseScreen {
         player.update(delta);
         world.update();
         updateWeather(delta);
-
 
     }
 
@@ -150,6 +171,5 @@ public class MenuScreen extends BaseScreen {
         rayHandler.dispose();
         world.dispose();
         menu.dispose();
-        asset.dispose();
     }
 }

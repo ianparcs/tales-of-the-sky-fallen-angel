@@ -1,17 +1,25 @@
-package com.sparcsky.tofts.fallenangel;
+package com.sparcsky.tofts.fallenangel.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sparcsky.tofts.fallenangel.util.Physics;
-import com.sparcsky.tofts.fallenangel.util.factory.Box2DBuilder;
+import com.sparcsky.tofts.fallenangel.collision.GameCollision;
+import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.util.physics.Physics;
+import com.sparcsky.tofts.fallenangel.util.physics.PhysicsBody;
+import com.sparcsky.tofts.fallenangel.util.factory.Box2DMapBuilder;
 
 public class GameWorld {
 
@@ -28,7 +36,17 @@ public class GameWorld {
         world = new World(new Vector2(0, Physics.GRAVITY), true);
 
         debugRenderer = new Box2DDebugRenderer();
-        Box2DBuilder.buildShapes(map, world);
+        MapObjects platform = map.getLayers().get("platform").getObjects();
+
+        Box2DMapBuilder.buildShapes(platform, world);
+    }
+
+    public void addEntity(PhysicsBody physicsBody) {
+        physicsBody.define(world);
+    }
+
+    public void setCollisionListener(GameCollision gameCollision) {
+        world.setContactListener(gameCollision);
     }
 
     public void update() {
@@ -63,4 +81,5 @@ public class GameWorld {
     public World getWorld() {
         return world;
     }
+
 }

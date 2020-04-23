@@ -1,9 +1,9 @@
-package com.sparcsky.tofts.fallenangel.entity;
+package com.sparcsky.tofts.fallenangel.entity.astronomy;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.sparcsky.tofts.fallenangel.GameWorld;
-import com.sparcsky.tofts.fallenangel.util.Physics;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
+import com.sparcsky.tofts.fallenangel.util.physics.Physics;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;

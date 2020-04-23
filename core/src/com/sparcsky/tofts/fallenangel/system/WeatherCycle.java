@@ -2,10 +2,10 @@ package com.sparcsky.tofts.fallenangel.system;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
-import com.sparcsky.tofts.fallenangel.entity.Celestial;
-import com.sparcsky.tofts.fallenangel.entity.Moon;
-import com.sparcsky.tofts.fallenangel.entity.Sun;
-import com.sparcsky.tofts.fallenangel.util.math.Angle;
+import com.sparcsky.tofts.fallenangel.entity.astronomy.Celestial;
+import com.sparcsky.tofts.fallenangel.entity.astronomy.Moon;
+import com.sparcsky.tofts.fallenangel.entity.astronomy.Sun;
+import com.sparcsky.tofts.fallenangel.util.physics.Angle;
 
 import box2dLight.ChainLight;
 import box2dLight.RayHandler;

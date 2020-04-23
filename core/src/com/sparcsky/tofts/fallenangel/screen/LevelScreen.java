@@ -1,6 +1,6 @@
 package com.sparcsky.tofts.fallenangel.screen;
 
-import com.sparcsky.tofts.fallenangel.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
 
 
 public class LevelScreen extends BaseScreen {

@@ -1,4 +1,4 @@
-package com.sparcsky.tofts.fallenangel.util;
+package com.sparcsky.tofts.fallenangel.util.physics;
 
 import com.badlogic.gdx.math.Vector2;
 

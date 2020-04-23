@@ -37,6 +37,7 @@ public class Asset {
     public static final AssetDescriptor<Sound> SOUND_KEYBOARD_TYPE = new AssetDescriptor<>("sound/keyboard-1.wav", Sound.class);
 
     public static final AssetDescriptor<TiledMap> TMX_BACKGROUND = new AssetDescriptor<>("map/menu.tmx", TiledMap.class);
+    public static final AssetDescriptor<TiledMap> TMX_LEVEL_1 = new AssetDescriptor<>("map/level_one.tmx", TiledMap.class);
     public static final AssetDescriptor<TextureAtlas> TMX_PARALLAX = new AssetDescriptor<>("map/parallax.atlas", TextureAtlas.class);
 
     public static final AssetDescriptor<ParticleEffect> DATA_PARTICLE = new AssetDescriptor<>("data/particles.pt", ParticleEffect.class);
@@ -63,6 +64,7 @@ public class Asset {
     }
 
     public void loadAllResources() {
+        manager.load(Asset.TMX_LEVEL_1);
         manager.load(Asset.SOUND_WOODLAND_FANTASY);
         manager.load(Asset.SOUND_KEYBOARD_TYPE);
         manager.load(Asset.IMAGE_LIBGDX_LOGO);
@@ -74,6 +76,7 @@ public class Asset {
         manager.load(Asset.FONT_TITLE);
         manager.load(Asset.ATLAS_UI);
         manager.load(Asset.SKIN_UI);
+
     }
 
     public void setFontUseIntegerPositions() {

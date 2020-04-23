@@ -1,4 +1,4 @@
-package com.sparcsky.tofts.fallenangel;
+package com.sparcsky.tofts.fallenangel.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

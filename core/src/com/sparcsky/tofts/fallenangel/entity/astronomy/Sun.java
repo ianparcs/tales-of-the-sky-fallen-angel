@@ -1,10 +1,7 @@
-package com.sparcsky.tofts.fallenangel.entity;
+package com.sparcsky.tofts.fallenangel.entity.astronomy;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 
-import box2dLight.DirectionalLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
@@ -17,7 +14,7 @@ public class Sun extends Celestial {
 
         setRaySoftnessLength(15);
         setOrbitDegrees(180);
-        setRaysAlpha(0.6f);
+        setRaysAlpha(0.63f);
         setRayColor(color);
     }
 

@@ -4,12 +4,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sparcsky.tofts.fallenangel.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 
 public abstract class BaseScreen implements Screen {
 
-    ScreenManager screenManager;
+    protected ScreenManager screenManager;
     Viewport worldViewport;
     SpriteBatch batch;
     Color screenColor;

@@ -2,13 +2,15 @@
   BitmapFont: {
     main: {
       file: font/Adventurer.fnt
+      scaledSize:1
     }
     small: {
       file: font/Adventurer.fnt
-      scaledSize:5
+      scaledSize:6
     }
     title: {
       file: font/Adventurer_title.fnt
+      scaledSize:42
     }
   }
   Color: {

@@ -2,6 +2,9 @@ package com.sparcsky.tofts.fallenangel.entity;
 
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.sparcsky.tofts.fallenangel.collision.ICollidable;
+import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 public abstract class Entity {
 
@@ -51,8 +54,9 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public void setSize(int width, int height) {
+    public void setSize(float width, float height) {
         this.width = width;
         this.height = height;
     }
+
 }
