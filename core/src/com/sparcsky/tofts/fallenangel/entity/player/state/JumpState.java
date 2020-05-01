@@ -3,6 +3,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -12,23 +13,41 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class JumpState extends MoveState {
 
+    private Animation<TextureRegion> jumpAnim;
+    private Animation<TextureRegion> doubleJumpAnim;
+
+    private boolean jump;
+    private boolean doubleJump;
 
     public JumpState(Player player) {
         super(player);
 
-        animState = new Animation<>(0.09f, atlas.findRegions("adventurer-jump"), Animation.PlayMode.NORMAL);
+        jumpAnim = new Animation<>(0.09f, atlas.findRegions("adventurer-jump"), Animation.PlayMode.NORMAL);
+        doubleJumpAnim = new Animation<>(0.09f, atlas.findRegions("adventurer-smrslt"), Animation.PlayMode.LOOP);
+
     }
 
     @Override
     public void enter() {
+        if (player.getPreviousState() == StateType.FALL) {
+            doubleJumpState();
+            return;
+        }
         player.jump();
         player.setStateTime(0);
-        player.setAnimations(animState);
+        player.setAnimations(jumpAnim);
+        jump = true;
+        doubleJump = false;
     }
 
     @Override
     public void exit() {
-    //    player.setRestitution(0f);
+        jump = false;
+    }
+
+    private void doubleJumpState() {
+        player.doubleJump();
+        player.setAnimations(doubleJumpAnim);
     }
 
     @Override
@@ -37,13 +56,21 @@ public class JumpState extends MoveState {
 
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {
             player.changeState(StateType.AIR_ATTACK);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            player.changeState(StateType.DOUBLE_JUMP);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !player.isDoubleJumped()) {
+            doubleJumpState();
         }
 
         if (player.isFalling()) {
             player.changeState(StateType.FALL);
         }
+    }
+
+    public boolean isDoubleJump() {
+        return doubleJump;
+    }
+
+    public void setDoubleJump(boolean doubleJump) {
+        this.doubleJump = doubleJump;
     }
 
     @Override

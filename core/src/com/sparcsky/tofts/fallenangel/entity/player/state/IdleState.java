@@ -3,6 +3,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
@@ -13,16 +14,17 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class IdleState extends PlayerState {
 
+    private Animation<TextureRegion> idleAnim;
+
     public IdleState(Player player) {
         super(player);
-        animState = new Animation<>(0.15f, atlas.findRegions("adventurer-idle"), Animation.PlayMode.LOOP);
+        idleAnim = new Animation<>(0.15f, atlas.findRegions("adventurer-idle"), Animation.PlayMode.LOOP);
     }
 
     @Override
     public void enter() {
-        player.setAnimations(animState);
+        player.setAnimations(idleAnim);
         player.setVelocity(new Vector2(0, player.getBody().getLinearVelocity().y));
-        player.setDoubleJump(false);
     }
 
     @Override

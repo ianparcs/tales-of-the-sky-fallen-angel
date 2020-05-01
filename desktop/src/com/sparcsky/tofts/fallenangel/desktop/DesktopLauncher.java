@@ -12,6 +12,7 @@ public class DesktopLauncher {
         config.width = 1024;
         config.height = 720;
         config.forceExit = false;
+        config.y = 0;
    //  config.fullscreen = true;
         config.title = "Tales of the Sky: The Fallen Knight";
         config.vSyncEnabled = true;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="18" tilewidth="16" tileheight="16" infinite="0" nextlayerid="43" nextobjectid="114">
- <objectgroup id="40" name="ground">
-  <object id="110" x="0" y="240" width="510.667" height="48"/>
+ <objectgroup id="40" name="platform">
+  <object id="110" name="ground" x="0" y="240" width="510.667" height="48"/>
  </objectgroup>
 </map>

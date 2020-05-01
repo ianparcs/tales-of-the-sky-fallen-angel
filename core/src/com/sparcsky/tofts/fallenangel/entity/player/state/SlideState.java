@@ -3,6 +3,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -12,32 +13,30 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class SlideState extends PlayerState {
 
+    private Animation<TextureRegion> runAnim;
 
     public SlideState(Player player) {
         super(player);
-        animState = new Animation<>(0.09f, atlas.findRegions("adventurer-wall-slide"), Animation.PlayMode.LOOP);
+        runAnim = new Animation<>(0.09f, atlas.findRegions("adventurer-wall-slide"), Animation.PlayMode.LOOP);
     }
+
 
     @Override
     public void enter() {
-        player.setAnimations(animState);
-        player.setWallSliding(true);
-        player.setVelocityY(1);
+        player.setAnimations(runAnim);
+        player.getBody().setLinearDamping(15);
     }
 
     @Override
     public void exit() {
-        player.setWallSliding(false);
         player.setStateTime(0);
-        player.getBody().setGravityScale(4.5f);
+        player.getBody().setLinearDamping(0);
     }
 
     @Override
     public void update(float delta) {
-        player.getBody().setGravityScale(4.5f);
 
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            player.getBody().setGravityScale(0.5f);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 player.changeState(StateType.JUMP);
             }

@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.sparcsky.tofts.fallenangel.game.FallenAngel;
-import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.LibgdxSplash;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 
 public class SplashScreen extends BaseScreen {
 

@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.entity.weapon.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +29,8 @@ public abstract class AttackState extends PlayerState {
 
     @Override
     public void enter() {
-        Animation<TextureRegion> currentAnim = attacks.get(nextAttack);
-        player.setAnimations(currentAnim);
         player.setAttacking(true);
-        player.setStateTime(0);
+        switchAttack();
     }
 
     @Override
@@ -41,21 +41,31 @@ public abstract class AttackState extends PlayerState {
         player.setAttacking(false);
     }
 
+    private void switchAttack() {
+        player.setStateTime(0);
+        Animation<TextureRegion> currentAnim = attacks.get(nextAttack);
+        player.setAnimations(currentAnim);
+    }
+
     @Override
     public void update(float delta) {
         attackTime += delta;
-        player.attack = Gdx.input.isKeyJustPressed(Input.Keys.K) || Gdx.input.isTouched();
+
+        if (player.isAnimationFinished()) player.setAttacking(false);
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K) || Gdx.input.isTouched()) {
+            player.setAttacking(true);
+        }
 
         if (player.isAttacking()) {
             attackTime = 0;
             if (player.isAnimationFinished()) {
                 nextAttack++;
                 if (nextAttack >= attacks.size()) nextAttack = 0;
-                enter();
-            } else {
-                player.setAttacking(true);
+                switchAttack();
             }
         }
+
     }
 
 }

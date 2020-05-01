@@ -3,6 +3,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -12,10 +13,19 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class FallState extends MoveState {
 
+    private Animation<TextureRegion> fallAnim;
 
     public FallState(Player player) {
         super(player);
-        animState = new Animation<>(0.09f, atlas.findRegions("adventurer-fall"), Animation.PlayMode.NORMAL);
+
+        fallAnim = new Animation<>(0.09f, atlas.findRegions("adventurer-fall"), Animation.PlayMode.NORMAL);
+    }
+
+    @Override
+    public void enter() {
+        super.enter();
+        player.setAnimations(fallAnim);
+
     }
 
     @Override
@@ -25,7 +35,7 @@ public class FallState extends MoveState {
         if (Gdx.input.isKeyPressed(Input.Keys.K)) {
             player.changeState(StateType.AIR_ATTACK);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !player.isDoubleJumped()) {
-            player.changeState(StateType.DOUBLE_JUMP);
+            player.changeState(StateType.JUMP);
         }
 
     }

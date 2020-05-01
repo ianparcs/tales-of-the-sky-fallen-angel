@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sparcsky.tofts.fallenangel.game.FallenAngel;
-import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Menu;
 import com.sparcsky.tofts.fallenangel.entity.player.StaticPlayer;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxBackground;
 import com.sparcsky.tofts.fallenangel.parallax.ParallaxFactory;
 import com.sparcsky.tofts.fallenangel.system.ParticleSystem;
@@ -82,7 +82,7 @@ public class MenuScreen extends BaseScreen {
         player = new StaticPlayer(asset);
         player.setPosition((16 * 5) / PPT, (16 * 3) / PPT);
         player.setSize((48 / PPT), (32 / PPT));
-        player.define(world.getWorld());
+        player.define(world);
     }
 
     private void setCursor() {
@@ -94,7 +94,6 @@ public class MenuScreen extends BaseScreen {
     private void createMenuOptions() {
         Viewport viewport = new ExtendViewport(GameWorld.WIDTH * 20, GameWorld.HEIGHT * 20);
         menu = new Menu(asset, batch, viewport);
-
     }
 
     private void createParallax() {

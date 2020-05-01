@@ -214,161 +214,161 @@ adventurer-attack3
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-00
+adventurer-bow
   rotate: false
   xy: 1250, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-01
+adventurer-bow
   rotate: false
   xy: 2, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-02
+adventurer-bow
   rotate: false
   xy: 470, 2
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-03
+adventurer-bow
   rotate: false
   xy: 1302, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-04
+adventurer-bow
   rotate: false
   xy: 1198, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-05
+adventurer-bow
   rotate: false
   xy: 1614, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-06
+adventurer-bow
   rotate: false
   xy: 1198, 2
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-07
+adventurer-bow
   rotate: false
   xy: 470, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-08
+adventurer-bow
   rotate: false
   xy: 1146, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-00
+adventurer-bow-jump
   rotate: false
   xy: 1146, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-01
+adventurer-bow-jump
   rotate: false
   xy: 1354, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-02
+adventurer-bow-jump
   rotate: false
   xy: 54, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-03
+adventurer-bow-jump
   rotate: false
   xy: 106, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-04
+adventurer-bow-jump
   rotate: false
   xy: 1510, 2
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-bow-jump-05
+adventurer-bow-jump
   rotate: false
   xy: 210, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-00
+adventurer-cast
   rotate: false
   xy: 1406, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-01
+adventurer-cast
   rotate: false
   xy: 1458, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-02
+adventurer-cast
   rotate: false
   xy: 1510, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-03
+adventurer-cast
   rotate: false
   xy: 1562, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-loop-00
+adventurer-cast-loop
   rotate: false
   xy: 1302, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-loop-02
-  rotate: false
-  xy: 1302, 119
-  size: 50, 37
-  orig: 50, 37
-  offset: 0, 0
-  index: -1
-adventurer-cast-loop-01
+adventurer-cast-loop
   rotate: false
   xy: 1354, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-cast-loop-03
+adventurer-cast-loop
+  rotate: false
+  xy: 1302, 119
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: -1
+adventurer-cast-loop
   rotate: false
   xy: 1354, 158
   size: 50, 37
@@ -921,91 +921,91 @@ adventurer-ladder-climb-03
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-00
+adventurer-punch
   rotate: false
   xy: 54, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-01
+adventurer-punch
   rotate: false
   xy: 106, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-02
+adventurer-punch
   rotate: false
   xy: 158, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-03
+adventurer-punch
   rotate: false
   xy: 210, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-04
+adventurer-punch
   rotate: false
   xy: 54, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-05
+adventurer-punch
   rotate: false
   xy: 1406, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-06
+adventurer-punch
   rotate: false
   xy: 678, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-07
+adventurer-punch
   rotate: false
   xy: 1198, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-08
+adventurer-punch
   rotate: false
   xy: 210, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-09
+adventurer-punch
   rotate: false
   xy: 1666, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-10
+adventurer-punch
   rotate: false
   xy: 574, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-11
+adventurer-punch
   rotate: false
   xy: 834, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-punch-12
+adventurer-punch
   rotate: false
   xy: 54, 197
   size: 50, 37
@@ -1054,49 +1054,49 @@ adventurer-run-05
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-00
+adventurer-run-punch
   rotate: false
   xy: 990, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-01
+adventurer-run-punch
   rotate: false
   xy: 1042, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-02
+adventurer-run-punch
   rotate: false
   xy: 834, 2
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-03
+adventurer-run-punch
   rotate: false
   xy: 938, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-04
+adventurer-run-punch
   rotate: false
   xy: 1406, 2
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-05
+adventurer-run-punch
   rotate: false
   xy: 1510, 119
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-run-punch-06
+adventurer-run-punch
   rotate: false
   xy: 886, 41
   size: 50, 37

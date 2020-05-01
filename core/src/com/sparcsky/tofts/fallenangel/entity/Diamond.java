@@ -14,7 +14,7 @@ public class Diamond extends DynamicEntity {
         animation = new Animation<>(0.15f, loadFrames);
         currentFrame = animation.getKeyFrame(stateTime, true);
 
-        width = (currentFrame.getRegionWidth() /  16f) / 2f;
+        width = (currentFrame.getRegionWidth() / 16f) / 2f;
         height = (currentFrame.getRegionHeight() / 16f) / 2f;
     }
 }

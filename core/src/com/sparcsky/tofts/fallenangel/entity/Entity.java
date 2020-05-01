@@ -1,10 +1,6 @@
 package com.sparcsky.tofts.fallenangel.entity;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.sparcsky.tofts.fallenangel.collision.ICollidable;
-import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 public abstract class Entity {
 

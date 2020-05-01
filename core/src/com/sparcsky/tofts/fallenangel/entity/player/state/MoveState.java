@@ -21,7 +21,6 @@ public abstract class MoveState extends PlayerState {
 
     @Override
     public void enter() {
-        player.setAnimations(animState);
         speedX = 10;
     }
 

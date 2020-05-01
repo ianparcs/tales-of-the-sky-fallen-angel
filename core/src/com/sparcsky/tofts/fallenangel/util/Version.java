@@ -7,7 +7,7 @@ package com.sparcsky.tofts.fallenangel.util;
  */
 public class Version {
 
-    public static String get(){
+    public static String get() {
         return "1.0";
     }
 }

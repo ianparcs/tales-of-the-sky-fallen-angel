@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.sparcsky.tofts.fallenangel.game.FallenAngel;
-import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Diamond;
+import com.sparcsky.tofts.fallenangel.game.FallenAngel;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 
 public class LoadScreen extends BaseScreen {
 

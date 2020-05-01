@@ -4,20 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.DynamicEntity;
+import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.util.physics.Physics;
-import com.sparcsky.tofts.fallenangel.util.physics.PhysicsBody;
+import com.sparcsky.tofts.fallenangel.util.physics.PhysicsObject;
 
 /**
  * Created by Ian Jasper Parcon on 4/20/2020.
  * Sparcsky Games
  * ianparcs@gmail.com
  */
-public class StaticPlayer extends DynamicEntity implements PhysicsBody {
+public class StaticPlayer extends DynamicEntity implements PhysicsObject {
 
     private Body body;
 
@@ -31,7 +32,7 @@ public class StaticPlayer extends DynamicEntity implements PhysicsBody {
     }
 
     @Override
-    public void define(World world) {
+    public void define(GameWorld world) {
         BodyDef bdef = new BodyDef();
         bdef.position.set(((width * 0.5f)) + x, ((height * 0.5f)) + y);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -47,4 +48,18 @@ public class StaticPlayer extends DynamicEntity implements PhysicsBody {
         body.createFixture(fdef);
     }
 
+    @Override
+    public void beginCollision(PhysicsObject physicsObject) {
+
+    }
+
+    @Override
+    public void onCollision(PhysicsObject physicsObject, Contact contact) {
+
+    }
+
+    @Override
+    public void endCollision(PhysicsObject physicsObject) {
+
+    }
 }

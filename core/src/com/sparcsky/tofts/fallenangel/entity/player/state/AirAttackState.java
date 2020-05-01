@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.entity.weapon.Weapon;
 
 /**
  * Created by Ian Jasper Parcon on 4/20/2020.
@@ -18,12 +19,12 @@ public class AirAttackState extends AttackState {
 
     public AirAttackState(Player player) {
         super(player);
-        animState = new Animation<>(0.09f, atlas.findRegions("adventurer-air-attack1"), Animation.PlayMode.NORMAL);
+        Animation<TextureRegion> airAttack0 = new Animation<>(0.09f, atlas.findRegions("adventurer-air-attack1"), Animation.PlayMode.NORMAL);
         Animation<TextureRegion> airAttack1 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack2"), Animation.PlayMode.NORMAL);
         Animation<TextureRegion> airAttack2 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack3-rdy"), Animation.PlayMode.NORMAL);
         Animation<TextureRegion> airAttack3 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack3"), Animation.PlayMode.NORMAL);
 
-        attacks.add(animState);
+        attacks.add(airAttack0);
         attacks.add(airAttack1);
         attacks.add(airAttack2);
         attacks.add(airAttack3);
@@ -31,22 +32,30 @@ public class AirAttackState extends AttackState {
 
     @Override
     public void enter() {
+        if (player.getWeapon() != null) {
+            Weapon weapon = player.getWeapon();
+            weapon.setAwake(true);
+
+            attacks = weapon.getAttacks();
+        }
         super.enter();
         player.setVelocityX(0);
-        player.getBody().setAwake(false);
     }
 
     @Override
     public void exit() {
         super.exit();
         nextAttack = 0;
-        player.getBody().setAwake(true);
     }
 
     @Override
     public void update(float delta) {
         attackTime += delta;
-        player.attack = Gdx.input.isKeyJustPressed(Input.Keys.K) || Gdx.input.isTouched();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K) || Gdx.input.isTouched()) {
+            player.setAttacking(true);
+        } else {
+            player.setAttacking(false);
+        }
 
         if (player.onGround() && player.getBody().isAwake()) {
             player.setVelocityX(0);
@@ -80,8 +89,7 @@ public class AirAttackState extends AttackState {
         if (attackTime >= 0.55f && !player.isAttacking() && nextAttack != 3) {
             player.changeState(StateType.FALL);
         }
-
-       // move();
+        move();
     }
 
     @Override

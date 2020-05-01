@@ -2,9 +2,9 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.entity.weapon.Weapon;
 
 /**
  * Created by Ian Jasper Parcon on 4/18/2020.
@@ -13,24 +13,37 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class GroundAttackState extends AttackState {
 
-
     public GroundAttackState(Player player) {
         super(player);
+    }
 
-        animState = new Animation<>(.07f, atlas.findRegions("adventurer-attack1"), Animation.PlayMode.NORMAL);
-        Animation<TextureRegion> attack1 = new Animation<>(.07f, atlas.findRegions("adventurer-attack2"), Animation.PlayMode.NORMAL);
-        Animation<TextureRegion> attack2 = new Animation<>(.07f, atlas.findRegions("adventurer-attack3"), Animation.PlayMode.NORMAL);
+    @Override
+    public void enter() {
+        if (player.getWeapon() != null) {
+            Weapon weapon = player.getWeapon();
+            weapon.setAwake(true);
+            attacks = weapon.getAttacks();
+        }
+        super.enter();
+    }
 
-        attacks.add(animState);
-        attacks.add(attack1);
-        attacks.add(attack2);
+
+    @Override
+    public void exit() {
+        if (player.getWeapon() != null)
+            super.exit();
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-        if (attackTime >= 0.5f && !player.isAttacking()) {
+        if (player.getWeapon() != null) {
+            Weapon weapon = player.getWeapon();
+            weapon.setAwake(true);
+        }
+
+        if (attackTime >= 0.1F && !player.isAttacking()) {
             player.changeState(StateType.IDLE);
         }
 

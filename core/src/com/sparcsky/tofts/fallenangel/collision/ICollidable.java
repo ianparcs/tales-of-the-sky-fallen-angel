@@ -1,6 +1,6 @@
 package com.sparcsky.tofts.fallenangel.collision;
 
-import com.sparcsky.tofts.fallenangel.entity.Wall;
+import com.sparcsky.tofts.fallenangel.entity.tiled.Wall;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -11,5 +11,6 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
 public interface ICollidable {
 
     void collide(Player player);
+
     void collide(Wall wall);
 }

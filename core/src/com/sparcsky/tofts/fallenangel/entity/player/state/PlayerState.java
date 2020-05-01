@@ -1,8 +1,6 @@
 package com.sparcsky.tofts.fallenangel.entity.player.state;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -12,7 +10,6 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public abstract class PlayerState {
 
-    protected Animation<TextureRegion> animState;
     protected TextureAtlas atlas;
     protected Player player;
 

@@ -3,6 +3,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 
 /**
@@ -12,9 +13,17 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
  */
 public class RunState extends MoveState {
 
+    private Animation<TextureRegion> runAnim;
+
     public RunState(Player player) {
         super(player);
-        animState = new Animation<>(0.09f, atlas.findRegions("adventurer-run3"), Animation.PlayMode.LOOP);
+        runAnim = new Animation<>(0.09f, atlas.findRegions("adventurer-run3"), Animation.PlayMode.LOOP);
+    }
+
+    @Override
+    public void enter() {
+        super.enter();
+        player.setAnimations(runAnim);
     }
 
     @Override

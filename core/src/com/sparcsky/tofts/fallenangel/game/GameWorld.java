@@ -3,23 +3,28 @@ package com.sparcsky.tofts.fallenangel.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.Joint;
+import com.badlogic.gdx.physics.box2d.JointDef;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sparcsky.tofts.fallenangel.collision.GameCollision;
-import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.entity.tiled.Ground;
+import com.sparcsky.tofts.fallenangel.entity.tiled.InanimateObject;
+import com.sparcsky.tofts.fallenangel.entity.tiled.Wall;
+import com.sparcsky.tofts.fallenangel.util.factory.ShapeFactory;
 import com.sparcsky.tofts.fallenangel.util.physics.Physics;
-import com.sparcsky.tofts.fallenangel.util.physics.PhysicsBody;
-import com.sparcsky.tofts.fallenangel.util.factory.Box2DMapBuilder;
 
 public class GameWorld {
 
@@ -36,13 +41,33 @@ public class GameWorld {
         world = new World(new Vector2(0, Physics.GRAVITY), true);
 
         debugRenderer = new Box2DDebugRenderer();
-        MapObjects platform = map.getLayers().get("platform").getObjects();
 
-        Box2DMapBuilder.buildShapes(platform, world);
+        MapObjects platform = map.getLayers().get("platform").getObjects();
+        createPlatforms(platform);
     }
 
-    public void addEntity(PhysicsBody physicsBody) {
-        physicsBody.define(world);
+    private void createPlatforms(MapObjects platforms) {
+        Array<Body> bodies = new Array<>();
+        for (MapObject mapObject : platforms) {
+            if (mapObject instanceof TextureMapObject) continue;
+
+            Shape shape = ShapeFactory.getShapeOfMapObject(mapObject);
+            InanimateObject platformObject = getPlatform(shape, mapObject.getName());
+            platformObject.define(this);
+
+            bodies.add(platformObject.getBody());
+            shape.dispose();
+        }
+    }
+
+    private InanimateObject getPlatform(Shape shape, String platformName) {
+        InanimateObject inanimateObject = null;
+        if (platformName.equals("ground")) {
+            inanimateObject = new Ground(shape);
+        } else if (platformName.equals("wall")) {
+            inanimateObject = new Wall(shape);
+        }
+        return inanimateObject;
     }
 
     public void setCollisionListener(GameCollision gameCollision) {
@@ -82,4 +107,19 @@ public class GameWorld {
         return world;
     }
 
+    public Joint createJoint(JointDef jointDef) {
+        return world.createJoint(jointDef);
+    }
+
+    public Body createBody(BodyDef bdef) {
+        return world.createBody(bdef);
+    }
+
+    public void destroy(Body body) {
+        world.destroyBody(body);
+    }
+
+    public void destroy(Joint weaponHolder) {
+        world.destroyJoint(weaponHolder);
+    }
 }

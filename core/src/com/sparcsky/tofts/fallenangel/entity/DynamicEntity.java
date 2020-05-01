@@ -42,4 +42,8 @@ public abstract class DynamicEntity extends Entity {
     public Animation<TextureRegion> getAnimation() {
         return animation;
     }
+
+    public boolean isFlip() {
+        return flip;
+    }
 }

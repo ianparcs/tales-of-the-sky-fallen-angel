@@ -20,62 +20,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.sparcsky.tofts.fallenangel.collision.Category;
+import com.sparcsky.tofts.fallenangel.collision.Bits;
 import com.sparcsky.tofts.fallenangel.util.physics.Physics;
 
-public class Box2DMapBuilder {
-
+public class ShapeFactory {
 
     private static float ppt = Physics.PPT;
-
-    public static Array<Body> buildShapes(MapObjects objects, World world) {
-        Array<Body> bodies = new Array<>();
-
-        for (MapObject object : objects) {
-
-            if (object instanceof TextureMapObject) {
-                continue;
-            }
-
-            Shape shape;
-
-            if (object instanceof RectangleMapObject) {
-                shape = getRectangle((RectangleMapObject) object);
-            } else if (object instanceof PolygonMapObject) {
-                shape = getPolygon((PolygonMapObject) object);
-            } else if (object instanceof PolylineMapObject) {
-                shape = getPolyline((PolylineMapObject) object);
-            } else if (object instanceof CircleMapObject) {
-                shape = getCircle((CircleMapObject) object);
-            } else {
-                continue;
-            }
-
-            BodyDef bd = new BodyDef();
-            bd.type = BodyDef.BodyType.StaticBody;
-            Body body = world.createBody(bd);
-            body.setUserData(object.getName());
-
-            FixtureDef fixtureDef = new FixtureDef();
-            fixtureDef.shape = shape;
-            fixtureDef.density = 1;
-            fixtureDef.friction = 1;
-            if (object.getName().equals("ground")) {
-                fixtureDef.filter.categoryBits = Category.GROUND;
-                fixtureDef.filter.maskBits = Category.GROUND;
-            } else if (object.getName().equals("wall")) {
-               fixtureDef.filter.categoryBits = Category.WALL;
-                fixtureDef.filter.maskBits = Category.ARM;
-            }
-
-            Fixture fixture = body.createFixture(fixtureDef);
-            fixture.setUserData(object.getName());
-
-            bodies.add(body);
-            shape.dispose();
-        }
-        return bodies;
-    }
 
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
         Rectangle rectangle = rectangleObject.getRectangle();
@@ -124,6 +74,20 @@ public class Box2DMapBuilder {
         ChainShape chain = new ChainShape();
         chain.createChain(worldVertices);
         return chain;
+    }
+
+    public static Shape getShapeOfMapObject(MapObject object) {
+        Shape shape = null;
+        if (object instanceof RectangleMapObject) {
+            shape = getRectangle((RectangleMapObject) object);
+        } else if (object instanceof PolygonMapObject) {
+            shape = getPolygon((PolygonMapObject) object);
+        } else if (object instanceof PolylineMapObject) {
+            shape = getPolyline((PolylineMapObject) object);
+        } else if (object instanceof CircleMapObject) {
+            shape = getCircle((CircleMapObject) object);
+        }
+        return shape;
     }
 
 }
