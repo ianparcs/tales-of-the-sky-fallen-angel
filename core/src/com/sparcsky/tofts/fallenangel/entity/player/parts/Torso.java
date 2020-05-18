@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.sparcsky.tofts.fallenangel.collision.Bits;
 import com.sparcsky.tofts.fallenangel.entity.monster.Monster;
+import com.sparcsky.tofts.fallenangel.entity.player.Player;
+import com.sparcsky.tofts.fallenangel.entity.player.state.StateType;
 import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.util.factory.FilterFactory;
 import com.sparcsky.tofts.fallenangel.util.physics.BodyEditorLoader;
@@ -33,15 +35,19 @@ public class Torso extends BodyParts {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
         if (physicsObject instanceof Monster) {
-
+            Player player = (Player) parentBody.getUserData();
+            player.health = player.health - 10;
+            player.changeState(StateType.HURT);
         }
     }
 
     @Override
     public void onCollision(PhysicsObject physicsObject, Contact contact) {
-
+        if (physicsObject instanceof Monster) {
+            contact.setEnabled(false);
+        }
     }
 
     @Override

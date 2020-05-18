@@ -49,7 +49,7 @@ public class StaticPlayer extends DynamicEntity implements PhysicsObject {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
 
     }
 

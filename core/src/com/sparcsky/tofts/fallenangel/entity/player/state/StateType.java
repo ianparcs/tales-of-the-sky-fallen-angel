@@ -7,6 +7,7 @@ package com.sparcsky.tofts.fallenangel.entity.player.state;
  */
 public enum StateType {
 
-    IDLE, AIR_ATTACK,  JUMP,
-    FALL, GROUND_ATTACK, SLIDE, RUN;
+    IDLE, AIR_ATTACK, JUMP,
+    FALL, GROUND_ATTACK, SLIDE,
+    RUN, DIE, HURT
 }

@@ -15,6 +15,7 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
 public class IdleState extends PlayerState {
 
     private Animation<TextureRegion> idleAnim;
+    private boolean ground;
 
     public IdleState(Player player) {
         super(player);
@@ -43,9 +44,16 @@ public class IdleState extends PlayerState {
         }
     }
 
+    public boolean onGround() {
+        return ground;
+    }
+
     @Override
     public StateType getType() {
         return StateType.IDLE;
     }
 
+    public void setOnGround(boolean ground) {
+        this.ground = ground;
+    }
 }

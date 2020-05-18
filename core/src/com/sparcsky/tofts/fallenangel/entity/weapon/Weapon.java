@@ -32,20 +32,6 @@ public abstract class Weapon implements PhysicsObject {
 
     public abstract void define(GameWorld world);
 
-    public void flip() {
-        Player player = (Player) equipper;
-        if (player.isFlip()) {
-            body.setTransform(body.getWorldCenter(), 0);
-        } else {
-            body.setTransform(new Vector2(player.getX(), player.getY()), 180 * MathUtils.degreesToRadians);
-        }
-        body.setAngularVelocity(0);
-    }
-
-    public Equipper getEquipper() {
-        return equipper;
-    }
-
     public void setEquipper(Equipper equipper) {
         this.equipper = equipper;
     }
@@ -66,9 +52,7 @@ public abstract class Weapon implements PhysicsObject {
         }
     }
 
-    public List<Animation<TextureRegion>> getAttacks() {
-        return attacks;
-    }
+    public abstract List<Animation<TextureRegion>> getAttacks();
 
     public void setAwake(boolean b) {
         body.setAwake(b);

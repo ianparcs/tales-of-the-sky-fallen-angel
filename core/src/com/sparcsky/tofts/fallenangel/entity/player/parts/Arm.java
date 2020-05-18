@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.sparcsky.tofts.fallenangel.collision.Bits;
+import com.sparcsky.tofts.fallenangel.entity.monster.Monster;
 import com.sparcsky.tofts.fallenangel.entity.player.Player;
 import com.sparcsky.tofts.fallenangel.entity.player.state.StateType;
 import com.sparcsky.tofts.fallenangel.entity.tiled.Wall;
@@ -35,7 +36,7 @@ public class Arm extends BodyParts {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
         if(physicsObject instanceof Wall){
             Player player = (Player) parentBody.getUserData();
             player.changeState(StateType.SLIDE);

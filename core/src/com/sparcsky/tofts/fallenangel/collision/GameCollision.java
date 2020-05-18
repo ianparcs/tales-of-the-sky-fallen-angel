@@ -20,8 +20,8 @@ public class GameCollision implements ContactListener {
         PhysicsObject userDataB = (PhysicsObject) contact.getFixtureB().getUserData();
 
         if (userDataA != null && userDataB != null) {
-            userDataA.beginCollision(userDataB);
-            userDataB.beginCollision(userDataA);
+            userDataA.beginCollision(userDataB, contact);
+            userDataB.beginCollision(userDataA, contact);
         }
     }
 

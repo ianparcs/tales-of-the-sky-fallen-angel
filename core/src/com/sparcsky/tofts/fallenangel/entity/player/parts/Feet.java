@@ -30,17 +30,21 @@ public class Feet extends BodyParts {
         Fixture feetFixture = bodyLoader.attachFixture(parentBody, rigidName, new FixtureDef(), 1);
         feetFixture.setFilterData(feetFilter);
         feetFixture.setUserData(this);
-        feetFixture.setDensity(1f);
+        feetFixture.setDensity(5f);
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
         if (physicsObject instanceof Ground) {
             Player player = (Player) parentBody.getUserData();
             StateType currentState = player.getCurrentState();
+            player.setOnGround(true);
 
-            if (currentState != StateType.AIR_ATTACK && currentState != StateType.RUN) {
-                player.changeState(StateType.IDLE);
+            if (currentState != StateType.RUN && currentState != StateType.DIE) {
+                if (currentState == StateType.AIR_ATTACK) {
+                } else {
+             //       player.changeState(StateType.IDLE);
+                }
             }
         }
     }
@@ -52,6 +56,9 @@ public class Feet extends BodyParts {
 
     @Override
     public void endCollision(PhysicsObject physicsObject) {
-
+        if (physicsObject instanceof Ground) {
+            Player player = (Player) parentBody.getUserData();
+            player.setOnGround(false);
+        }
     }
 }

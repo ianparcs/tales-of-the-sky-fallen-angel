@@ -25,4 +25,5 @@ public abstract class PlayerState {
     public abstract void update(float delta);
 
     public abstract StateType getType();
+
 }

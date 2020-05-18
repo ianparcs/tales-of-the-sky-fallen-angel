@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.sparcsky.tofts.fallenangel.collision.Bits;
 import com.sparcsky.tofts.fallenangel.entity.DynamicEntity;
-import com.sparcsky.tofts.fallenangel.entity.weapon.Sword;
 import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.util.physics.PhysicsObject;
 
@@ -19,6 +18,11 @@ import com.sparcsky.tofts.fallenangel.util.physics.PhysicsObject;
  */
 public class Monster extends DynamicEntity implements PhysicsObject {
 
+    protected float attackDamage;
+
+    public Monster(){
+        attackDamage = 5;
+    }
     @Override
     public void define(GameWorld world) {
         BodyDef bodyDef = new BodyDef();
@@ -45,7 +49,7 @@ public class Monster extends DynamicEntity implements PhysicsObject {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
 
     }
 
@@ -57,5 +61,9 @@ public class Monster extends DynamicEntity implements PhysicsObject {
     @Override
     public void endCollision(PhysicsObject physicsObject) {
 
+    }
+
+    public float getAttack() {
+        return attackDamage;
     }
 }

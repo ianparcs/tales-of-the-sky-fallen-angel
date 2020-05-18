@@ -13,7 +13,6 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
 public abstract class MoveState extends PlayerState {
 
     protected int speedX;
-    private boolean flip;
 
     public MoveState(Player player) {
         super(player);

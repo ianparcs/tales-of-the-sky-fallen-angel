@@ -12,7 +12,7 @@ public interface PhysicsObject {
 
     void define(GameWorld world);
 
-    void beginCollision(PhysicsObject physicsObject);
+    void beginCollision(PhysicsObject physicsObject, Contact contact);
 
     void onCollision(PhysicsObject physicsObject, Contact contact);
 

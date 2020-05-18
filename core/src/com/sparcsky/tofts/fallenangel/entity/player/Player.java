@@ -1,5 +1,6 @@
 package com.sparcsky.tofts.fallenangel.entity.player;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,8 +15,10 @@ import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.DynamicEntity;
 import com.sparcsky.tofts.fallenangel.entity.player.state.AirAttackState;
+import com.sparcsky.tofts.fallenangel.entity.player.state.DieState;
 import com.sparcsky.tofts.fallenangel.entity.player.state.FallState;
 import com.sparcsky.tofts.fallenangel.entity.player.state.GroundAttackState;
+import com.sparcsky.tofts.fallenangel.entity.player.state.HurtState;
 import com.sparcsky.tofts.fallenangel.entity.player.state.IdleState;
 import com.sparcsky.tofts.fallenangel.entity.player.state.JumpState;
 import com.sparcsky.tofts.fallenangel.entity.player.state.PlayerState;
@@ -44,11 +47,13 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
 
     private RevoluteJoint weaponHolder;
     private PlayerBodyBuilder bodyBuilder;
+    public float health;
 
     public Player(Asset asset) {
         this.asset = asset;
         states = new HashMap<>();
         sprite = new Sprite();
+        health = 100;
     }
 
     @Override
@@ -72,7 +77,7 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
 
     }
 
@@ -91,8 +96,10 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
         states.put(StateType.AIR_ATTACK, new AirAttackState(this));
         states.put(StateType.SLIDE, new SlideState(this));
         states.put(StateType.IDLE, new IdleState(this));
+        states.put(StateType.HURT, new HurtState(this));
         states.put(StateType.FALL, new FallState(this));
         states.put(StateType.JUMP, new JumpState(this));
+        states.put(StateType.DIE, new DieState(this));
         states.put(StateType.RUN, new RunState(this));
 
         currentState = states.get(StateType.IDLE);
@@ -108,7 +115,7 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
     }
 
     public void jump() {
-        setVelocityY(30);
+        setVelocityY(25);
     }
 
     @Override
@@ -127,7 +134,7 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
             sprite.setSize(width, height);
             sprite.setPosition(x, y);
             sprite.flip(flip, false);
-             sprite.draw(batch);
+            sprite.draw(batch);
         }
     }
 
@@ -150,7 +157,7 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
         world.destroy(weapon.getBody());
     }
 
-    private void weaponFlip(){
+    private void weaponFlip() {
         if (flip) {
             weaponHolder.setLimits(0, 360 * MathUtils.degreesToRadians);
             weapon.getBody().setTransform(weapon.getBody().getPosition(), 360 * MathUtils.degreesToRadians);
@@ -201,6 +208,10 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
         return asset.get(Asset.ATLAS_PLAYER);
     }
 
+    public void slowDampingFall(float value) {
+        body.setLinearDamping(value);
+    }
+
     public void setVelocityY(float y) {
         float velX = body.getLinearVelocity().x;
         body.setLinearVelocity(velX, y);
@@ -228,13 +239,19 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
     }
 
     public boolean onGround() {
-        return body.getLinearVelocity().y == 0;
+        IdleState idleState = (IdleState) states.get(StateType.IDLE);
+        return idleState.onGround();
+    }
+
+    public void setOnGround(boolean onGround) {
+        IdleState idleState = (IdleState) states.get(StateType.IDLE);
+        idleState.setOnGround(onGround);
     }
 
     public void doubleJump() {
         JumpState jumpState = (JumpState) states.get(StateType.JUMP);
         jumpState.setDoubleJump(true);
-        setVelocityY(25);
+        setVelocityY(20);
     }
 
     public StateType getCurrentState() {
@@ -252,5 +269,9 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
     public boolean isDoubleJumped() {
         JumpState jumpState = (JumpState) states.get(StateType.JUMP);
         return jumpState.isDoubleJump();
+    }
+
+    public boolean isDead() {
+        return health <= 0;
     }
 }

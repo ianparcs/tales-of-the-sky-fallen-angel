@@ -522,63 +522,70 @@ adventurer-crouch-walk-05
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-die-00
+adventurer-hurt
   rotate: false
   xy: 314, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-hurt-00
+adventurer-hurt
+  rotate: false
+  xy: 366, 80
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: -1
+adventurer-hurt
+  rotate: false
+  xy: 2, 158
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: -1
+adventurer-die
   rotate: false
   xy: 314, 41
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-die-01
+adventurer-die
   rotate: false
   xy: 366, 80
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-hurt-01
-  rotate: false
-  xy: 366, 80
-  size: 50, 37
-  orig: 50, 37
-  offset: 0, 0
-  index: -1
-adventurer-die-02
+adventurer-die
   rotate: false
   xy: 1146, 197
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-die-03
+adventurer-die
   rotate: false
   xy: 470, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-die-05
-  rotate: false
-  xy: 522, 197
-  size: 50, 37
-  orig: 50, 37
-  offset: 0, 0
-  index: -1
-adventurer-die-06
+adventurer-die
   rotate: false
   xy: 158, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0
   index: -1
-adventurer-die-04
+adventurer-die
+  rotate: false
+  xy: 522, 197
+  size: 50, 37
+  orig: 50, 37
+  offset: 0, 0
+  index: -1
+adventurer-die
   rotate: false
   xy: 158, 158
   size: 50, 37
@@ -679,13 +686,6 @@ adventurer-get-up-05
 adventurer-get-up-06
   rotate: false
   xy: 990, 80
-  size: 50, 37
-  orig: 50, 37
-  offset: 0, 0
-  index: -1
-adventurer-hurt-02
-  rotate: false
-  xy: 2, 158
   size: 50, 37
   orig: 50, 37
   offset: 0, 0

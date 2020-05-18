@@ -24,13 +24,13 @@ public class SlideState extends PlayerState {
     @Override
     public void enter() {
         player.setAnimations(runAnim);
-        player.getBody().setLinearDamping(15);
+        player.slowDampingFall(15);
     }
 
     @Override
     public void exit() {
         player.setStateTime(0);
-        player.getBody().setLinearDamping(0);
+        player.slowDampingFall(0);
     }
 
     @Override

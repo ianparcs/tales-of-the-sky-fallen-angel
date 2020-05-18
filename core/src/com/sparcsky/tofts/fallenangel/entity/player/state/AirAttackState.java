@@ -19,15 +19,6 @@ public class AirAttackState extends AttackState {
 
     public AirAttackState(Player player) {
         super(player);
-        Animation<TextureRegion> airAttack0 = new Animation<>(0.09f, atlas.findRegions("adventurer-air-attack1"), Animation.PlayMode.NORMAL);
-        Animation<TextureRegion> airAttack1 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack2"), Animation.PlayMode.NORMAL);
-        Animation<TextureRegion> airAttack2 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack3-rdy"), Animation.PlayMode.NORMAL);
-        Animation<TextureRegion> airAttack3 = new Animation<>(.07f, atlas.findRegions("adventurer-air-attack3"), Animation.PlayMode.NORMAL);
-
-        attacks.add(airAttack0);
-        attacks.add(airAttack1);
-        attacks.add(airAttack2);
-        attacks.add(airAttack3);
     }
 
     @Override
@@ -35,17 +26,18 @@ public class AirAttackState extends AttackState {
         if (player.getWeapon() != null) {
             Weapon weapon = player.getWeapon();
             weapon.setAwake(true);
-
             attacks = weapon.getAttacks();
         }
         super.enter();
         player.setVelocityX(0);
+        player.slowDampingFall(50);
     }
 
     @Override
     public void exit() {
         super.exit();
         nextAttack = 0;
+        player.slowDampingFall(0);
     }
 
     @Override
@@ -63,14 +55,18 @@ public class AirAttackState extends AttackState {
                 player.setStateTime(0);
                 player.setAnimations(airAttackEnd);
             }
-            if (player.isAnimationFinished()) player.changeState(StateType.IDLE);
+
+            if (player.isAnimationFinished()) {
+                player.changeState(StateType.IDLE);
+            }
             return;
         }
 
         if (nextAttack == 2 && player.isAnimationFinished()) {
             nextAttack = 3;
             enter();
-            player.setVelocity(new Vector2(0, -40));
+            player.setVelocity(new Vector2(0, -30));
+            player.slowDampingFall(0);
             return;
         }
 
@@ -89,7 +85,7 @@ public class AirAttackState extends AttackState {
         if (attackTime >= 0.55f && !player.isAttacking() && nextAttack != 3) {
             player.changeState(StateType.FALL);
         }
-        move();
+        //move();
     }
 
     @Override

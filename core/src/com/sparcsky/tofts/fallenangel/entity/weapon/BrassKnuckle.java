@@ -13,6 +13,8 @@ import com.sparcsky.tofts.fallenangel.entity.player.Player;
 import com.sparcsky.tofts.fallenangel.game.GameWorld;
 import com.sparcsky.tofts.fallenangel.util.physics.PhysicsObject;
 
+import java.util.List;
+
 /**
  * Created by Ian Jasper Parcon on 4/25/2020.
  * Sparcsky Games
@@ -54,7 +56,12 @@ public class BrassKnuckle extends Weapon {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public List<Animation<TextureRegion>> getAttacks() {
+        return attacks;
+    }
+
+    @Override
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
 
     }
 

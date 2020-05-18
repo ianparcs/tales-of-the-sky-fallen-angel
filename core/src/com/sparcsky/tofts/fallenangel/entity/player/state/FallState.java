@@ -25,7 +25,13 @@ public class FallState extends MoveState {
     public void enter() {
         super.enter();
         player.setAnimations(fallAnim);
+        player.slowDampingFall(1);
+    }
 
+    @Override
+    public void exit() {
+        super.exit();
+        player.slowDampingFall(0);
     }
 
     @Override
@@ -37,7 +43,9 @@ public class FallState extends MoveState {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && !player.isDoubleJumped()) {
             player.changeState(StateType.JUMP);
         }
-
+        if (player.onGround()) {
+            player.changeState(StateType.IDLE);
+        }
     }
 
     @Override

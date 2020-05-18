@@ -31,7 +31,7 @@ public class Wall extends InanimateObject {
     }
 
     @Override
-    public void beginCollision(PhysicsObject physicsObject) {
+    public void beginCollision(PhysicsObject physicsObject, Contact contact) {
 
     }
 
