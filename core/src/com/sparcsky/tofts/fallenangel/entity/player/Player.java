@@ -69,7 +69,6 @@ public class Player extends DynamicEntity implements PhysicsObject, Equipper {
         body = bodyBuilder.build();
         body.setUserData(this);
 
-
         setX(body.getPosition().x - width / 2f);
         setY(body.getPosition().y - height / 2f);
 

@@ -9,6 +9,7 @@ import com.sparcsky.tofts.fallenangel.asset.Asset;
 import com.sparcsky.tofts.fallenangel.entity.Diamond;
 import com.sparcsky.tofts.fallenangel.game.FallenAngel;
 import com.sparcsky.tofts.fallenangel.game.GameWorld;
+import com.sun.javafx.applet.Splash;
 
 public class LoadScreen extends BaseScreen {
 
@@ -62,7 +63,7 @@ public class LoadScreen extends BaseScreen {
 
         if (asset.isLoadFinish()) {
             dispose();
-            screenManager.setScreen(new NewGameScreen(game));
+            screenManager.setScreen(new SplashScreen(game));
         }
     }
 

@@ -35,7 +35,7 @@ public class StaticPlayer extends DynamicEntity implements PhysicsObject {
     public void define(GameWorld world) {
         BodyDef bdef = new BodyDef();
         bdef.position.set(((width * 0.5f)) + x, ((height * 0.5f)) + y);
-        bdef.type = BodyDef.BodyType.DynamicBody;
+        bdef.type = BodyDef.BodyType.StaticBody;
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox((width * 0.5f) / 2f, (height * 0.5f) / 1.2f);

@@ -107,8 +107,6 @@ public class MenuScreen extends BaseScreen {
         world.setViewport(worldViewport);
 
         rayHandler = new RayHandler(world.getWorld());
-        rayHandler.setShadows(true);
-
         weatherCycle = new WeatherCycle(rayHandler);
     }
 

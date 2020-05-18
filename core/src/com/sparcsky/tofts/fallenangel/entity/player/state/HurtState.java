@@ -18,7 +18,6 @@ public class HurtState extends PlayerState {
 
     public HurtState(Player player) {
         super(player);
-        Torso s = new Torso();
         hurtAnim = new Animation<>(0.15f, atlas.findRegions("adventurer-hurt"), Animation.PlayMode.NORMAL);
     }
 

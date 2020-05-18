@@ -137,6 +137,11 @@ public class Menu implements Disposable, Graphics, Updatable {
         TypingLabel label = GuiFactory.createMenuTitle(skin);
         label.setTypingListener(new TypingAdapter() {
             @Override
+            public void event(String event) {
+
+            }
+
+            @Override
             public void end() {
                 bgMusic.play();
                 bgMusic.setLooping(true);
@@ -144,7 +149,15 @@ public class Menu implements Disposable, Graphics, Updatable {
 
             @Override
             public void onChar(Character ch) {
-                keyboardType.play();
+                if(ch.equals('T')) return;
+
+                String title = "Tales of the Sky";
+                for (int i = 0; i < title.length(); i++) {
+                    if (title.charAt(i) == ch && title.charAt(i) != ' ') {
+                        keyboardType.play();
+                        break;
+                    }
+                }
             }
         });
 

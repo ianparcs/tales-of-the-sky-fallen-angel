@@ -2,13 +2,18 @@ package com.sparcsky.tofts.fallenangel.system;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.sparcsky.tofts.fallenangel.entity.astronomy.Celestial;
 import com.sparcsky.tofts.fallenangel.entity.astronomy.Moon;
 import com.sparcsky.tofts.fallenangel.entity.astronomy.Sun;
 import com.sparcsky.tofts.fallenangel.util.physics.Angle;
 
 import box2dLight.ChainLight;
+import box2dLight.Light;
+import box2dLight.PointLight;
 import box2dLight.RayHandler;
+
+import static com.sparcsky.tofts.fallenangel.util.physics.Physics.PPT;
 
 public class WeatherCycle {
 
@@ -19,6 +24,7 @@ public class WeatherCycle {
 
     private Color dayLightColor;
     private ChainLight chainLight;
+    private Light playerGlow;
 
     public WeatherCycle(RayHandler rayHandler) {
         this.rayHandler = rayHandler;
@@ -29,10 +35,16 @@ public class WeatherCycle {
         moon = new Moon(rayHandler);
         dayLightColor = sun.getColor();
 
-        float[] vertex = new float[]
-                {0, 3, 33, 3};
+        float[] vertex = new float[]{0, 3, 33, 3};
+
         chainLight = new ChainLight(rayHandler, 128, moon.getColor(), 0.5f, 1, vertex);
         chainLight.setSoftnessLength(15);
+
+
+        Color color = new Color(moon.getColor().r,moon.getColor().g,moon.getColor().b,0.8f);
+
+        playerGlow = new PointLight(rayHandler, 128,color, 0.5f, 3, 33);
+        playerGlow.setPosition((16 * 6.5f) / PPT, (16 * 3) / PPT);
     }
 
     public void update(float delta) {
@@ -46,6 +58,7 @@ public class WeatherCycle {
             makeGlowNight();
             enableXRay(false);
         } else {
+            playerGlow.setDistance(0);
             enableXRay(true);
         }
 
@@ -94,11 +107,12 @@ public class WeatherCycle {
 
         if (moonDegrees < Angle.STRAIGHT && moonDegrees > Angle.RIGHT) {
             midnightAlpha = (moon.getOrbitDegrees() - 90) / 90f;
-            glow = MathUtils.lerp(3, 0.5f, midnightAlpha);
+            glow = MathUtils.lerp(2, 0.5f, midnightAlpha);
         } else {
             midnightAlpha = (moon.getOrbitDegrees()) / 90f;
-            glow = MathUtils.lerp(0.5f, 3, midnightAlpha);
+            glow = MathUtils.lerp(0.5f, 2, midnightAlpha);
         }
+        playerGlow.setDistance(glow * 10);
         chainLight.setDistance(glow);
     }
 

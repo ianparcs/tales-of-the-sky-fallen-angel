@@ -12,7 +12,7 @@ public abstract class Celestial {
 
     private static final float MIN_PULSE_RATE = 3;
     private static final float MAX_PULSE_RATE = 5;
-    private final float SPEED = 3;
+    private final float SPEED = 6;
     protected PointLight body;
     protected PointLight rays;
     protected Color color;
